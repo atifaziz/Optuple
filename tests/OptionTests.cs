@@ -22,7 +22,6 @@ namespace JustNothing.Tests
             Assert.That(x.Value, Is.EqualTo(default(int)));
         }
 
-
         [Test]
         public void IsSome()
         {
