@@ -254,5 +254,18 @@ namespace JustNothing.Tests
             var none = Option.None<int>();
             Assert.Throws<ArgumentException>(() => none.Get());
         }
+
+        [Test]
+        public void OrDefaultSome()
+        {
+            var some = Option.Some(2);
+            Assert.That(some.OrDefault(), Is.EqualTo(2));
+        }
+        [Test]
+        public void OrDefaultNone()
+        {
+            var none = Option.None<int>();
+            Assert.That(none.OrDefault(), Is.EqualTo(0));
+        }
     }
 }
