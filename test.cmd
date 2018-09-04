@@ -6,7 +6,7 @@ goto :EOF
 
 :main
     call build ^
- && call :test Debug /p:CollectCoverage=true /p:Exclude=[NUnit*]* ^
+ && call :test Debug -p:CollectCoverage=true -p:Exclude=[NUnit*]* ^
  && call :test Release
 goto :EOF
 
