@@ -309,5 +309,25 @@ namespace JustNothing.Tests
             Assert.That(some.Exists(x => x < 3), Is.False);
             Assert.That(some.Exists(x => x >= 3), Is.False);
         }
+
+        [Test]
+        public void FilterSome()
+        {
+            var some = Option.Some(2);
+            var result1 = some.Filter(x => x < 3);
+            var result2 = some.Filter(x => x >= 3);
+            Assert.That(result1.IsSome(), Is.True);
+            Assert.That(result2.IsNone(), Is.True);
+        }
+
+        [Test]
+        public void FilterNone()
+        {
+            var some = Option.None<int>();
+            var result1 = some.Filter(x => x < 3);
+            var result2 = some.Filter(x => x >= 3);
+            Assert.That(result1.IsNone(), Is.True);
+            Assert.That(result2.IsNone(), Is.True);
+        }
     }
 }
