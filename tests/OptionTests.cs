@@ -51,5 +51,36 @@ namespace JustNothing.Tests
             var x = Option.None<int>();
             Assert.That(x.IsSome(), Is.False);
         }
+
+        [Test]
+        public void ToOption()
+        {
+            var x = (true, 3).ToOption();
+            Assert.That(x.IsSome(), Is.True);
+            Assert.That(x.Value, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void ToOption2()
+        {
+            var x = (false, 3).ToOption();
+            Assert.That(x.IsNone(), Is.True);
+        }
+
+        [Test]
+        public void ToOption3()
+        {
+            int? i = 3;
+            var x = i.ToOption();
+            Assert.That(x.IsSome(), Is.True);
+        }
+
+        [Test]
+        public void ToOption4()
+        {
+            int? i = null;
+            var x = i.ToOption();
+            Assert.That(x.IsNone(), Is.True);
+        }
     }
 }
