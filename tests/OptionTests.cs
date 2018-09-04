@@ -82,5 +82,19 @@ namespace JustNothing.Tests
             var x = i.ToOption();
             Assert.That(x.IsNone(), Is.True);
         }
+
+        [Test]
+        public void From()
+        {
+            var x = Option.From(true, 3);
+            Assert.That(x.IsSome(), Is.True);
+        }
+
+        [Test]
+        public void From2()
+        {
+            var x = Option.From(false, 3);
+            Assert.That(x.IsNone(), Is.True);
+        }
     }
 }
