@@ -158,5 +158,37 @@ namespace JustNothing.Tests
             var x = Option.NoneWhen(i, e => !e.HasValue);
             Assert.That(x.IsNone());
         }
+
+        [Test]
+        public void MatchSome()
+        {
+            var some = Option.Some(2);
+            var result = some.Match(x => "aeiou".Substring(x), () => "aeiou");
+            Assert.That(result, Is.EqualTo("iou"));
+        }
+
+        [Test]
+        public void MatchNone()
+        {
+            var none = Option.None<int>();
+            var result = none.Match(x => "aeiou".Substring(x), () => "aeiou");
+            Assert.That(result, Is.EqualTo("aeiou"));
+        }
+
+        [Test]
+        public void MatchSomeWithAction()
+        {
+            var some = Option.Some(2);
+            some.Match(x => Assert.That(x, Is.EqualTo(2)),
+                       () => Assert.Fail());
+        }
+
+        [Test]
+        public void MatchNoneWithAction()
+        {
+            var none = Option.None<int>();
+            none.Match(x => Assert.Fail(),
+                       () => Assert.Pass());
+        }
     }
 }
