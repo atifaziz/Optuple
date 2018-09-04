@@ -112,5 +112,21 @@ namespace JustNothing.Tests
             Assert.That(x.HasValue, Is.False);
             Assert.That(x.Value, Is.EqualTo(default(int)));
         }
+
+        [Test]
+        public void SomeWhen()
+        {
+            int? i = 3;
+            var x = Option.SomeWhen(i, e => e.HasValue);
+            Assert.That(x.IsSome());
+        }
+
+        [Test]
+        public void SomeWhen2()
+        {
+            int? i = null;
+            var x = Option.SomeWhen(i, e => e.HasValue);
+            Assert.That(x.IsNone());
+        }
     }
 }
