@@ -205,5 +205,22 @@ namespace JustNothing.Tests
             none.Do(x => Assert.Fail());
             Assert.Pass();
         }
+
+        [Test]
+        public void BindSome()
+        {
+            var some = Option.Some(2);
+            var result = some.Bind(x => Option.Some("aeiou".Substring(x)));
+            Assert.That(result.IsSome(), Is.True);
+            Assert.That(result.Value, Is.EqualTo("iou"));
+        }
+
+        [Test]
+        public void BindNone()
+        {
+            var none = Option.None<int>();
+            var result = none.Bind(x => Option.Some("aeiou".Substring(x)));
+            Assert.That(result.IsNone(), Is.True);
+        }
     }
 }
