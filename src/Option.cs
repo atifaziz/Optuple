@@ -100,7 +100,7 @@ namespace JustNothing
             option.Match(predicate, () => true);
 
         public static T[] ToArray<T>(this (Case, T) option) =>
-            option.Match(x => new[] { x }, () => Array.Empty<T>());
+            option.Match(x => new[] { x }, () => EmptyArray<T>.Value);
 
         public static List<T> ToList<T>(this (Case, T) option) =>
             option.Match(x => new List<T> { x }, () => new List<T>());
@@ -109,5 +109,10 @@ namespace JustNothing
             option.Match(Seq, System.Linq.Enumerable.Empty<T>);
 
         static IEnumerable<T> Seq<T>(T x) { yield return x; }
+
+        static class EmptyArray<T>
+        {
+            public static readonly T[] Value = new T[0];
+        }
     }
 }
