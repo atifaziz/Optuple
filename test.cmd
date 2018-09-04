@@ -6,10 +6,10 @@ goto :EOF
 
 :main
     call build ^
- && call :test Debug ^
+ && call :test Debug /p:CollectCoverage=true /p:Exclude=[NUnit*]* ^
  && call :test Release
 goto :EOF
 
 :test
-dotnet test --no-build tests -c %1
+dotnet test --no-build tests -c %*
 goto :EOF
