@@ -23,7 +23,6 @@ namespace JustNothing
         public enum Case { None, Some }
 
         public static (Case Case, T Value) Some<T>(T value) => (Case.Some, value);
-        public static (Case Case, T Value) Some<T>(T? value) where T : struct  => value is T t ? (Case.Some, t) : default;
         public static (Case Case, T Value) None<T>() => (Case.None, default);
 
         public static (Case Case, T Value) From<T>(bool isSome, T value) => isSome ? Some(value) : None<T>();
@@ -45,9 +44,7 @@ namespace JustNothing
         public static bool IsNone<T>(this (Case Case, T Value) option) => option.Case == Case.None;
 
         public static (Case Case, T Value) SomeWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? Some(value) : None<T>();
-        public static (Case Case, T Value) SomeWhen<T>(T? value, Func<T?, bool> predicate) where T : struct  => value is T t && predicate(t) ? Some(value) : None<T>();
         public static (Case Case, T Value) NoneWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? None<T>() : Some(value);
-        public static (Case Case, T Value) NoneWhen<T>(T? value, Func<T?, bool> predicate) where T : struct => value is T t && predicate(t) ? None<T>() : Some(value);
 
         public static TResult Match<T, TResult>(this (Case Case, T Value) option, Func<T, TResult> some, Func<TResult> none) =>
             option.IsSome() ? some(option.Value) : none();

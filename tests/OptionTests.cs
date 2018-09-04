@@ -140,7 +140,7 @@ namespace JustNothing.Tests
         {
             int? i = null;
             var x = Option.SomeWhen(i, e => e.HasValue);
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            Assert.That(x, Is.EqualTo(Option.None<int?>()));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace JustNothing.Tests
         {
             int? i = null;
             var x = Option.NoneWhen(i, e => !e.HasValue);
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            Assert.That(x, Is.EqualTo(Option.None<int?>()));
         }
 
         [Test]
