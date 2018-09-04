@@ -180,16 +180,14 @@ namespace JustNothing.Tests
         public void MatchSomeWithAction()
         {
             var some = Option.Some(2);
-            some.Match(x => Assert.That(x, Is.EqualTo(2)),
-                       () => Assert.Fail());
+            some.Match(x => Assert.That(x, Is.EqualTo(2)), Assert.Fail);
         }
 
         [Test]
         public void MatchNoneWithAction()
         {
             var none = Option.None<int>();
-            none.Match(x => Assert.Fail(),
-                       () => Assert.Pass());
+            none.Match(x => Assert.Fail(), Assert.Pass);
         }
 
         [Test]
