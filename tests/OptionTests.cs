@@ -73,7 +73,7 @@ namespace JustNothing.Tests
             Assert.That(x, Is.EqualTo(Option.Some(3)));
         }
 
-        [Test, Ignore("Bug?")]
+        [Test]
         public void ToOptionWithNullableNull()
         {
             int? i = null;
@@ -135,7 +135,7 @@ namespace JustNothing.Tests
             Assert.That(x, Is.EqualTo(Option.Some(3)));
         }
 
-        [Test, Ignore("Bug?")]
+        [Test]
         public void SomeWhen2()
         {
             int? i = null;
@@ -151,7 +151,7 @@ namespace JustNothing.Tests
             Assert.That(x, Is.EqualTo(Option.Some(3)));
         }
 
-        [Test, Ignore("Bug?")]
+        [Test]
         public void NoneWhen2()
         {
             int? i = null;
