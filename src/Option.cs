@@ -24,7 +24,7 @@ namespace JustNothing
         public enum Case { None, Some }
 
         public static (Case Case, T Value) Some<T>(T value) => (Case.Some, value);
-        public static (Case Case, T Value) None<T>() => (Case.None, default(T));
+        public static (Case Case, T Value) None<T>() => (Case.None, default);
 
         public static (Case Case, T Value) From<T>(bool isSome, T value) => isSome ? Some(value) : None<T>();
 
@@ -35,7 +35,7 @@ namespace JustNothing
             value == null ? None<T>() : Some(value);
 
         public static (bool HasValue, T Value) Flagged<T>(this (Case Case, T Value) option) =>
-            option.IsSome() ? (true, option.Value) : (false, default(T));
+            option.IsSome() ? (true, option.Value) : (false, default);
 
         public static bool IsSome<T>(this (Case Case, T Value) option) => option.Case == Case.Some;
         public static bool IsNone<T>(this (Case Case, T Value) option) => option.Case == Case.None;
@@ -62,7 +62,7 @@ namespace JustNothing
             option.IsSome() ? option.Value : throw new ArgumentException(nameof(option));
 
         public static T OrDefault<T>(this (Case Case, T Value) option) =>
-            option.Or(default(T));
+            option.Or(default);
 
         public static T Or<T>(this (Case Case, T Value) option, T none) =>
             option.IsSome() ? option.Value : none;
