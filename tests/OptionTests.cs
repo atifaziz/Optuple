@@ -281,5 +281,17 @@ namespace JustNothing.Tests
             var none = Option.None<int>();
             Assert.That(none.Or(1), Is.EqualTo(1));
         }
+
+        [Test]
+        public void CountSome()
+        {
+            Assert.That(Option.Some(2).Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CountNone()
+        {
+            Assert.That(Option.None<int>().Count(), Is.EqualTo(0));
+        }
     }
 }
