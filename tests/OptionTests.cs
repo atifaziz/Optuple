@@ -82,6 +82,22 @@ namespace JustNothing.Tests
         }
 
         [Test]
+        public void ToOptionWithNonNullReference()
+        {
+            string s = "aeiou";
+            var x = s.ToOption();
+            Assert.That(x.IsSome(), Is.True);
+        }
+
+        [Test]
+        public void ToOptionWithNullReference()
+        {
+            string s = null;
+            var x = s.ToOption();
+            Assert.That(x.IsNone(), Is.True);
+        }
+
+        [Test]
         public void From()
         {
             var x = Option.From(true, 3);
