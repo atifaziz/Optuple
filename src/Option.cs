@@ -27,12 +27,12 @@ namespace JustNothing
         public static (Case Case, T Value) None<T>() => (Case.None, default);
 
         public static (Case Case, T Value) From<T>(bool isSome, T value) => isSome ? Some(value) : None<T>();
-        public static (Case Case, T Value) From<T>((bool, T) option) => option.ToOptional();
+        public static (Case Case, T Value) From<T>((bool, T) option) => option.ToOption();
 
-        public static (Case Case, T Value) ToOptional<T>(this (bool HasValue, T Value) option) =>
+        public static (Case Case, T Value) ToOption<T>(this (bool HasValue, T Value) option) =>
             option.HasValue ? Some(option.Value) : None<T>();
 
-        public static (Case Case, T Value) ToOptional<T>(this T value) =>
+        public static (Case Case, T Value) ToOption<T>(this T value) =>
             value == null ? None<T>() : Some(value);
 
         public static (bool HasValue, T Value) Flagged<T>(this (Case Case, T Value) option) =>
