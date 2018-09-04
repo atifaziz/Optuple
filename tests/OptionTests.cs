@@ -293,5 +293,21 @@ namespace JustNothing.Tests
         {
             Assert.That(Option.None<int>().Count(), Is.EqualTo(0));
         }
+
+        [Test]
+        public void ExistsSome()
+        {
+            var some = Option.Some(2);
+            Assert.That(some.Exists(x => x < 3), Is.True);
+            Assert.That(some.Exists(x => x >= 3), Is.False);
+        }
+
+        [Test]
+        public void ExistsNone()
+        {
+            var some = Option.None<int>();
+            Assert.That(some.Exists(x => x < 3), Is.False);
+            Assert.That(some.Exists(x => x >= 3), Is.False);
+        }
     }
 }
