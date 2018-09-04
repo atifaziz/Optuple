@@ -330,6 +330,7 @@ namespace JustNothing.Tests
             Assert.That(result2.IsNone(), Is.True);
         }
 
+        [Test]
         public void ToNullableSome()
         {
             var some = Option.Some(2);
@@ -337,6 +338,7 @@ namespace JustNothing.Tests
             Assert.That(result, Is.EqualTo(2));
         }
 
+        [Test]
         public void ToNullableNone()
         {
             var none = Option.None<int>();
