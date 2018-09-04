@@ -329,5 +329,19 @@ namespace JustNothing.Tests
             Assert.That(result1.IsNone(), Is.True);
             Assert.That(result2.IsNone(), Is.True);
         }
+
+        public void ToNullableSome()
+        {
+            var some = Option.Some(2);
+            var result = some.ToNullable();
+            Assert.That(result, Is.EqualTo(2));
+        }
+
+        public void ToNullableNone()
+        {
+            var none = Option.None<int>();
+            var result = none.ToNullable();
+            Assert.That(result, Is.Null);
+        }
     }
 }
