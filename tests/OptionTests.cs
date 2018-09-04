@@ -96,5 +96,21 @@ namespace JustNothing.Tests
             var x = Option.From(false, 3);
             Assert.That(x.IsNone(), Is.True);
         }
+
+        [Test]
+        public void Flagged()
+        {
+            var x = (Case.Some, 3).Flagged();
+            Assert.That(x.HasValue, Is.True);
+            Assert.That(x.Value, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Flagged2()
+        {
+            var x = (Case.None, 3).Flagged();
+            Assert.That(x.HasValue, Is.False);
+            Assert.That(x.Value, Is.EqualTo(default(int)));
+        }
     }
 }
