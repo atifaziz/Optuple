@@ -267,5 +267,19 @@ namespace JustNothing.Tests
             var none = Option.None<int>();
             Assert.That(none.OrDefault(), Is.EqualTo(0));
         }
+
+        [Test]
+        public void OrSome()
+        {
+            var some = Option.Some(2);
+            Assert.That(some.Or(1), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void OrNone()
+        {
+            var none = Option.None<int>();
+            Assert.That(none.Or(1), Is.EqualTo(1));
+        }
     }
 }
