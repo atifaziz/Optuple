@@ -51,7 +51,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void ToOption()
+        public void ToOptionWithTupleIsSome()
         {
             var x = (true, 3).ToOption();
             Assert.That(x.IsSome(), Is.True);
@@ -59,14 +59,14 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void ToOption2()
+        public void ToOptionWithTupleIsNone()
         {
             var x = (false, 3).ToOption();
             Assert.That(x.IsNone(), Is.True);
         }
 
         [Test]
-        public void ToOption3()
+        public void ToOptionWithNullableNonNull()
         {
             int? i = 3;
             var x = i.ToOption();
@@ -74,7 +74,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void ToOption4()
+        public void ToOptionWithNullableNull()
         {
             int? i = null;
             var x = i.ToOption();
@@ -89,7 +89,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void From2()
+        public void FromNone()
         {
             var x = Option.From(false, 3);
             Assert.That(x.IsNone(), Is.True);
@@ -104,7 +104,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void Flagged2()
+        public void FlaggedNone()
         {
             var x = (Case.None, 3).Flagged();
             Assert.That(x.HasValue, Is.False);
