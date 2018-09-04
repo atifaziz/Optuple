@@ -222,5 +222,22 @@ namespace JustNothing.Tests
             var result = none.Bind(x => Option.Some("aeiou".Substring(x)));
             Assert.That(result.IsNone(), Is.True);
         }
+
+        [Test]
+        public void MapSome()
+        {
+            var some = Option.Some(97);
+            var result = some.Map(x => (char) x);
+            Assert.That(result.IsSome(), Is.True);
+            Assert.That(result.Value, Is.EqualTo('a'));
+        }
+
+        [Test]
+        public void MapNone()
+        {
+            var none = Option.None<int>();
+            var result = none.Map(x => (char) x);
+            Assert.That(result.IsNone(), Is.True);
+        }
     }
 }
