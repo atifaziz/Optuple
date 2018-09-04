@@ -3,6 +3,16 @@
     <TargetFrameworks>netstandard2.0;netstandard1.0</TargetFrameworks>
     <LangVersion>7.1</LangVersion>
     <VersionPrefix>1.0.0</VersionPrefix>
+    <Copyright>Copyright © 2018 Atif Aziz</Copyright>
+    <Description>A .NET Standard library that adds option semantics to a tuple of Boolean and T.</Description>
+    <Authors>Atif Aziz</Authors>
+    <Owners>Atif Aziz</Owners>
+    <Company></Company>
+    <PackageProjectUrl>https://github.com/atifaziz/JustNothing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/atifaziz/JustNothing.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>option;optional;maybe;some;none;just;nothing;monad;linq;fp;functional</PackageTags>
+    <PackageLicenseUrl>https://github.com/atifaziz/JustNothing/blob/master/COPYING.txt</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\</OutputPath>
