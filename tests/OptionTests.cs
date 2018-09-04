@@ -2,6 +2,7 @@ namespace JustNothing.Tests
 {
     using NUnit.Framework;
     using Case = Option.Case;
+    using System;
 
     [TestFixture]
     public class OptionTests
@@ -238,6 +239,20 @@ namespace JustNothing.Tests
             var none = Option.None<int>();
             var result = none.Map(x => (char) x);
             Assert.That(result.IsNone(), Is.True);
+        }
+
+        [Test]
+        public void GetSome()
+        {
+            var some = Option.Some(2);
+            Assert.That(some.Get(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GetNone()
+        {
+            var none = Option.None<int>();
+            Assert.Throws<ArgumentException>(() => none.Get());
         }
     }
 }
