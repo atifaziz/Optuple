@@ -128,5 +128,21 @@ namespace JustNothing.Tests
             var x = Option.SomeWhen(i, e => e.HasValue);
             Assert.That(x.IsNone());
         }
+
+        [Test]
+        public void NoneWhen()
+        {
+            int? i = 3;
+            var x = Option.NoneWhen(i, e => !e.HasValue);
+            Assert.That(x.IsSome());
+        }
+
+        [Test]
+        public void NoneWhen2()
+        {
+            int? i = null;
+            var x = Option.NoneWhen(i, e => !e.HasValue);
+            Assert.That(x.IsNone());
+        }
     }
 }
