@@ -17,7 +17,6 @@
 namespace JustNothing
 {
     using System;
-    using System.Collections.Generic;
 
     static partial class Option
     {
@@ -78,42 +77,5 @@ namespace JustNothing
 
         public static T? ToNullable<T>(this (Case Case, T Value) option) where T : struct =>
             option.IsSome() ? (T?) option.Value : null;
-
-        // LINQ support
-
-        public static (Case Case, TResult Value) Select<T, TResult>(this (Case, T) option, Func<T, TResult> selector) =>
-            option.Map(selector);
-
-        public static (Case Case, T Value) Where<T>(this (Case, T) option, Func<T, bool> predicate) =>
-            option.Filter(predicate);
-
-        public static (Case Case, TResult Value) SelectMany<T, TResult>(this (Case, T) first, Func<T, (Case, TResult)> secondSelector) =>
-            first.Bind(secondSelector);
-
-        public static (Case Case, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (Case, TFirst) first, Func<TFirst, (Case, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector) =>
-            first.Bind(x => secondSelector(x).Map(y => resultSelector(x, y)));
-
-        public static (Case Case, TResult Value) Cast<T, TResult>(this (Case, T) option) =>
-            from x in option
-            select (TResult) (object) x;
-
-        public static bool All<T>(this (Case, T) option, Func<T, bool> predicate) =>
-            option.Match(predicate, () => true);
-
-        public static T[] ToArray<T>(this (Case, T) option) =>
-            option.Match(x => new[] { x }, () => EmptyArray<T>.Value);
-
-        public static List<T> ToList<T>(this (Case, T) option) =>
-            option.Match(x => new List<T> { x }, () => new List<T>());
-
-        public static IEnumerable<T> ToEnumerable<T>(this (Case, T) option) =>
-            option.Match(Seq, System.Linq.Enumerable.Empty<T>);
-
-        static IEnumerable<T> Seq<T>(T x) { yield return x; }
-
-        static class EmptyArray<T>
-        {
-            public static readonly T[] Value = new T[0];
-        }
     }
 }
