@@ -2,7 +2,6 @@ namespace JustNothing.Tests
 {
     using NUnit.Framework;
     using Case = Option.Case;
-    using Linq;
 
     [TestFixture]
     public class OptionTests
