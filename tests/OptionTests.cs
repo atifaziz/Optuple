@@ -190,5 +190,20 @@ namespace JustNothing.Tests
             none.Match(x => Assert.Fail(),
                        () => Assert.Pass());
         }
+
+        [Test]
+        public void DoSome()
+        {
+            var some = Option.Some(2);
+            some.Do(x => Assert.That(x, Is.EqualTo(2)));
+        }
+
+        [Test]
+        public void DoNone()
+        {
+            var none = Option.None<int>();
+            none.Do(x => Assert.Fail());
+            Assert.Pass();
+        }
     }
 }
