@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustNothing", "src\JustNoth
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64F18457-F1E4-49B3-8C6A-947A3A14EAEA}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		build.cmd = build.cmd
 		build.sh = build.sh
 		COPYING.txt = COPYING.txt
