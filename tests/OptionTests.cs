@@ -112,7 +112,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void SomeWhen()
+        public void SomeWhenNullableIsNonNull()
         {
             int? i = 3;
             var x = Option.SomeWhen(i, e => e.HasValue);
@@ -120,7 +120,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void SomeWhen2()
+        public void SomeWhenNullableIsNull()
         {
             int? i = null;
             var x = Option.SomeWhen(i, e => e.HasValue);
@@ -128,7 +128,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void NoneWhen()
+        public void NoneWhenNullableIsNonNull()
         {
             int? i = 3;
             var x = Option.NoneWhen(i, e => !e.HasValue);
@@ -136,7 +136,7 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void NoneWhen2()
+        public void NoneWhenNullableIsNull()
         {
             int? i = null;
             var x = Option.NoneWhen(i, e => !e.HasValue);
