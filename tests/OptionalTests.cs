@@ -53,6 +53,15 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
+        public void SelectManySomeAndNone()
+        {
+            var result = from a in Option.Some(97)
+                         from b in Option.None<char>()
+                         select string.Concat(a, b);
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [Test]
         public void SelectManyNone()
         {
             var result = from a in Option.None<int>()
