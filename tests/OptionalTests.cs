@@ -19,5 +19,22 @@ namespace JustNothing.Tests
             Assert.That(result, Is.EqualTo(Option.Some('a')));
         }
 
+        [Test]
+        public void WhereSome()
+        {
+            var result = from a in Option.Some(97)
+                         where a < 100
+                         select a;
+            Assert.That(result, Is.EqualTo(Option.Some('a')));
+        }
+
+        [Test]
+        public void WhereNone()
+        {
+            var result = from a in Option.Some(97)
+                         where a > 100
+                         select a;
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
+        }
     }
 }
