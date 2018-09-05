@@ -6,7 +6,7 @@ namespace JustNothing.Linq.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    class OptionalTests
+    public class OptionalTests
     {
         [Test]
         public void Select()
