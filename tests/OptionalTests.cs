@@ -39,7 +39,7 @@ namespace JustNothing.Linq.Tests
         {
             var result = from a in Option.Some(97)
                          from b in Option.Some((char) a)
-                         select a.ToString() + b.ToString();
+                         select string.Concat(a, b);
             Assert.That(result, Is.EqualTo(Option.Some("97a")));
         }
 
@@ -48,7 +48,7 @@ namespace JustNothing.Linq.Tests
         {
             var result = from a in Option.None<int>()
                          from b in Option.Some((char) a)
-                         select a.ToString() + b.ToString();
+                         select string.Concat(a, b);
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
@@ -57,7 +57,7 @@ namespace JustNothing.Linq.Tests
         {
             var result = from a in Option.None<int>()
                          from b in Option.None<char>()
-                         select a.ToString() + b.ToString();
+                         select string.Concat(a, b);
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
