@@ -104,5 +104,19 @@ namespace JustNothing.Tests
             Assert.That(result1, Is.True);
             Assert.That(result2, Is.True);
         }
+
+        [Test]
+        public void ToArraySome()
+        {
+            var result = Option.Some(97).ToArray();
+            Assert.That(result, Is.EqualTo(new int[] { 97 }));
+        }
+
+        [Test]
+        public void ToArrayNone()
+        {
+            var result = Option.None<int>().ToArray();
+            Assert.That(result, Is.EqualTo(new int[] { }));
+        }
     }
 }
