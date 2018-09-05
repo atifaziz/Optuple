@@ -1,0 +1,183 @@
+# JustNothing
+
+## Usage
+
+### Using the library
+
+To use JustNothing simply import the following namespace:
+
+```csharp
+using JustNothing;
+```
+
+An auxiliary namespace is also provided:
+
+```csharp
+using JustNothing.Linq; // Linq query syntax support
+```
+
+### Creating optional values
+
+The most basic way to create optional values is to use the static `Option`
+class:
+
+```csharp
+var none = Option.None<int>();
+var some = Option.Some(42);
+```
+
+Similarly, a more general extension method is provided, allowing a specified
+predicate:
+
+```csharp
+string str = "foo";
+var none = Option.SomeWhen(str, s => s == "bar"); // Return None if predicate is violated
+var none = Option.NoneWhen(str, s => s == "foo"); // Return None if predicate is satisfied
+```
+
+Clearly, optional values are conceptually quite similar to nullables. Hence, a
+method is provided to convert a nullable into an optional value:
+
+```csharp
+int? nullableWithoutValue = null;
+int? nullableWithValue = 2;
+var none = nullableWithoutValue.ToOption();
+var some = nullableWithValue.ToOption();
+```
+
+### Retrieving values
+
+When retrieving values, JustNothing forces you to consider both cases (that is
+if a value is present or not).
+
+Firstly, it is possible to check if a value is actually present:
+
+```csharp
+var isSome = option.IsSome(); //returns true if a value is present
+var isNone = option.IsNone(); //returns true if a value is not present
+```
+
+If you want to check if an option `option` satisfies some predicate, you can use the
+`Exists` method. 
+
+```csharp
+var isGreaterThanHundred = option.Exists(val => val > 100);
+```
+
+The most basic way to retrieve a value from an `Option<T>` is the following:
+
+```csharp
+// Returns the value if present, or otherwise an alternative value (42)
+var value = option.Or(42);
+```
+
+Similarly, the `OrDefault` function simply retrieves the default value for
+a given type:
+
+```csharp
+var none = Option.None<int>();
+var value = none.OrDefault(); // Value 0
+```
+
+```csharp
+var none = Option.None<string>();
+var value = none.OrDefault(); // null
+```
+
+
+In more elaborate scenarios, the `Match` method evaluates a specified
+function:
+
+```csharp
+// Evaluates one of the provided functions and returns the result
+var value = option.Match(x => x + 1, () => 42); 
+
+// Or written in a more functional style (pattern matching)
+var value = option.Match(
+  some: x => x + 1, 
+  none: () => 42
+);
+```
+
+There is a similar `Match` function to simply induce side-effects:
+
+```csharp
+// Evaluates one of the provided actions
+option.Match(x => Console.WriteLine(x), () => Console.WriteLine(42)); 
+
+// Or pattern matching style as before
+option.Match(
+  some: x => Console.WriteLine(x), 
+  none: () => Console.WriteLine(42)
+);
+```
+
+### Transforming and filtering values
+
+A few extension methods are provided to safely manipulate optional values.
+
+The `Map` function transforms the inner value of an option. If no value is
+present none is simply propagated:
+
+```csharp
+var none = Option.None<int>();
+var stillNone = none.Map(x => x + 10);
+
+var some = Option.Some(42);
+var somePlus10 = some.Map(x => x + 10);
+```
+
+Finally, it is possible to perform filtering. The `Filter` function returns
+none, if the specified predicate is not satisfied. If the option is already
+none, it is simply returned as is:
+
+```csharp
+var none = Option.None<int>();
+var stillNone = none.Filter(x => x > 10);
+
+var some = Option.Some(10);
+var stillSome = some.Filter(x => x == 10);
+var none = some.Filter(x => x != 10);
+```
+
+### Enumerating options
+
+[comment]: # (Move somewhere?!)
+
+Although options deliberately don't act as enumerables, you can easily convert
+an option to an enumerable by calling the `ToEnumerable()` method:
+
+```csharp
+var enumerable = option.ToEnumerable();
+```
+
+### Working with LINQ query syntax
+
+JustNothing supports LINQ query syntax, to make the above transformations
+somewhat cleaner.
+
+To use LINQ query syntax you must import the following namespace:
+
+```csharp
+using JustNothing.Linq;
+```
+
+This allows you to do fancy stuff such as:
+
+```csharp
+var personWithGreenHair =
+  from person in FindPersonById(10)
+  from hairstyle in GetHairstyle(person)
+  from color in ParseStringToColor("green")
+  where hairstyle.Color == color
+  select person;
+```
+
+In general, this closely resembles a sequence of calls to `FlatMap` and `Filter`. However, using query syntax can be a lot easier to read in complex cases.
+
+### Equivalence and comparison
+
+Two optional values are equal if the following is satisfied:
+
+* The two options have the same type
+* Both are none, both contain null values, or the contained values are equal
