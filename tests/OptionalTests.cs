@@ -38,6 +38,33 @@ namespace JustNothing.Tests
         }
 
         [Test]
+        public void SelectMany()
+        {
+            var result = from a in Option.Some(97)
+                         from b in Option.Some((char) a)
+                         select a.ToString() + b.ToString();
+            Assert.That(result, Is.EqualTo(Option.Some("97a")));
+        }
+
+        [Test]
+        public void SelectManyNoneAndSome()
+        {
+            var result = from a in Option.None<int>()
+                         from b in Option.Some((char) a)
+                         select a.ToString() + b.ToString();
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [Test]
+        public void SelectManyNone()
+        {
+            var result = from a in Option.None<int>()
+                         from b in Option.None<char>()
+                         select a.ToString() + b.ToString();
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [Test]
         public void CastObjectToInt()
         {
             var result = from int x in Option.Some((object) 42)
