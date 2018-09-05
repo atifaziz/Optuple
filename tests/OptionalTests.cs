@@ -36,5 +36,23 @@ namespace JustNothing.Tests
                          select a;
             Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
+
+        [Test]
+        public void CastObjectToInt()
+        {
+            var result = from int x in Option.Some((object) 42)
+                         select x;
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
+        }
+
+        [Test]
+        public void CastIntToString()
+        {
+            Assert.Throws<InvalidCastException>(() => {
+                var _ = from string x in Option.Some((object) 42)
+                        select x;
+            });
+
+        }
     }
 }
