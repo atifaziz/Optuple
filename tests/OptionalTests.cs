@@ -118,5 +118,19 @@ namespace JustNothing.Tests
             var result = Option.None<int>().ToArray();
             Assert.That(result, Is.EqualTo(new int[] { }));
         }
+
+        [Test]
+        public void ToListSome()
+        {
+            var result = Option.Some(97).ToList();
+            Assert.That(result, Is.EqualTo(new List<int>() { 97 }));
+        }
+
+        [Test]
+        public void ToListNone()
+        {
+            var result = Option.None<int>().ToList();
+            Assert.That(result, Is.EqualTo(new List<int>()));
+        }
     }
 }
