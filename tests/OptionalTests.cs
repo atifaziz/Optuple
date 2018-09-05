@@ -81,5 +81,28 @@ namespace JustNothing.Tests
             });
 
         }
+
+        [Test]
+        public void AllSomeTrue()
+        {
+            var result = Option.Some(97).All(e => e < 100);
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void AllSomeFalse()
+        {
+            var result = Option.Some(97).All(e => e >= 100);
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void AllNone()
+        {
+            var result1 = Option.None<int>().All(e => e > 100);
+            var result2 = Option.None<int>().All(e => e <= 100);
+            Assert.That(result1, Is.True);
+            Assert.That(result2, Is.True);
+        }
     }
 }
