@@ -34,9 +34,9 @@ namespace JustNothing.Linq
         public static (Case Case, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (Case, TFirst) first, Func<TFirst, (Case, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector) =>
             first.Bind(x => secondSelector(x).Map(y => resultSelector(x, y)));
 
-        public static (Case Case, TResult Value) Cast<T, TResult>(this (Case, T) option) =>
+        public static (Case Case, T Value) Cast<T>(this (Case, object) option) =>
             from x in option
-            select (TResult) (object) x;
+            select (T) x;
 
         public static bool All<T>(this (Case, T) option, Func<T, bool> predicate) =>
             option.Match(predicate, () => true);
