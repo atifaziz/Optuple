@@ -17,6 +17,7 @@
 namespace JustNothing
 {
     using System;
+    using System.Collections.Generic;
 
     static partial class Option
     {
@@ -78,8 +79,9 @@ namespace JustNothing
         public static T? ToNullable<T>(this (Case Case, T Value) option) where T : struct =>
             option.IsSome() ? (T?) option.Value : null;
 
-        // TODO
-        // public static T? ToNullable<T>(this (Case Case, T? Value) option) where T : struct =>
-        //     option.IsSome() ? option.Value : null;
+        public static IEnumerable<T> ToEnumerable<T>(this (Case, T) option) =>
+            option.Match(Seq, System.Linq.Enumerable.Empty<T>);
+
+        static IEnumerable<T> Seq<T>(T x) { yield return x; }
     }
 }
