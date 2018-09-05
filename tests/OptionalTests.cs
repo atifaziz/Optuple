@@ -109,7 +109,7 @@ namespace JustNothing.Tests
         public void ToArraySome()
         {
             var result = Option.Some(97).ToArray();
-            Assert.That(result, Is.EqualTo(new int[] { 97 }));
+            Assert.That(result, Is.EqualTo(new[] { 97 }));
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace JustNothing.Tests
         public void ToListSome()
         {
             var result = Option.Some(97).ToList();
-            Assert.That(result, Is.EqualTo(new List<int>() { 97 }));
+            Assert.That(result, Is.EqualTo(new List<int> { 97 }));
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace JustNothing.Tests
         public void ToEnumerableSome()
         {
             var result = Option.Some(97).ToEnumerable();
-            Assert.That(result, Is.EqualTo(new int[] { 97 }));
+            Assert.That(result, Is.EqualTo(new[] { 97 }));
         }
 
         [Test]
