@@ -11,6 +11,13 @@ namespace JustNothing.Tests
     [TestFixture]
     class OptionalTests
     {
-        
+        [Test]
+        public void Select()
+        {
+            var result = from a in Option.Some(97)
+                         select (char) a;
+            Assert.That(result, Is.EqualTo(Option.Some('a')));
+        }
+
     }
 }
