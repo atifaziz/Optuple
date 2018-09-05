@@ -1,10 +1,9 @@
-namespace JustNothing.Tests
+namespace JustNothing.Linq.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
-    using JustNothing.Linq;
 
     [TestFixture]
     class OptionalTests
