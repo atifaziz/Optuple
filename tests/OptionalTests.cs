@@ -128,7 +128,15 @@ namespace JustNothing.Linq.Tests
             });
         }
 
-        // TODO Test Cast of None
+        [Test]
+        public void CastNone()
+        {
+            var result =
+                from int x in Option.None<DateTime>()
+                select Fail<string>();
+
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
 
         [Test]
         public void AllSomeTrue()
