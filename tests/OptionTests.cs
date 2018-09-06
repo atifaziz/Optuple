@@ -128,35 +128,31 @@ namespace JustNothing.Tests
         }
 
         [Test]
-        public void SomeWhenNullableIsNonNull()
+        public void SomeWhenWithTrueCondition()
         {
-            int? i = 42;
-            var x = Option.SomeWhen(i, e => e.HasValue);
+            var x = Option.SomeWhen(42, n => n > 0);
             Assert.That(x, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
-        public void SomeWhenNullableIsNull()
+        public void SomeWhenWithFalseCondition()
         {
-            int? i = null;
-            var x = Option.SomeWhen(i, e => e.HasValue);
-            Assert.That(x, Is.EqualTo(Option.None<int?>()));
+            var x = Option.SomeWhen(42, n => n < 0);
+            Assert.That(x, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void NoneWhenNullableIsNonNull()
         {
-            int? i = 42;
-            var x = Option.NoneWhen(i, e => !e.HasValue);
+            var x = Option.NoneWhen(42, n => n < 0);
             Assert.That(x, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void NoneWhenNullableIsNull()
         {
-            int? i = null;
-            var x = Option.NoneWhen(i, e => !e.HasValue);
-            Assert.That(x, Is.EqualTo(Option.None<int?>()));
+            var x = Option.NoneWhen(42, n => n > 0);
+            Assert.That(x, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
