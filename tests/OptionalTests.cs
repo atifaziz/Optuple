@@ -11,24 +11,24 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void Select()
         {
-            var result = from a in Option.Some(97)
+            var result = from a in Option.Some(42)
                          select (char) a;
-            Assert.That(result, Is.EqualTo(Option.Some('a')));
+            Assert.That(result, Is.EqualTo(Option.Some('*')));
         }
 
         [Test]
         public void WhereSome()
         {
-            var result = from a in Option.Some(97)
+            var result = from a in Option.Some(42)
                          where a < 100
                          select a;
-            Assert.That(result, Is.EqualTo(Option.Some('a')));
+            Assert.That(result, Is.EqualTo(Option.Some('*')));
         }
 
         [Test]
         public void WhereNone()
         {
-            var result = from a in Option.Some(97)
+            var result = from a in Option.Some(42)
                          where a > 100
                          select a;
             Assert.That(result, Is.EqualTo(Option.None<int>()));
@@ -37,10 +37,10 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void SelectMany()
         {
-            var result = from a in Option.Some(97)
+            var result = from a in Option.Some(42)
                          from b in Option.Some((char) a)
                          select string.Concat(a, b);
-            Assert.That(result, Is.EqualTo(Option.Some("97a")));
+            Assert.That(result, Is.EqualTo(Option.Some("42*")));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void SelectManySomeAndNone()
         {
-            var result = from a in Option.Some(97)
+            var result = from a in Option.Some(42)
                          from b in Option.None<char>()
                          select string.Concat(a, b);
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -91,14 +91,14 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void AllSomeTrue()
         {
-            var result = Option.Some(97).All(e => e < 100);
+            var result = Option.Some(42).All(e => e < 100);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void AllSomeFalse()
         {
-            var result = Option.Some(97).All(e => e >= 100);
+            var result = Option.Some(42).All(e => e >= 100);
             Assert.That(result, Is.False);
         }
 
@@ -114,8 +114,8 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void ToArraySome()
         {
-            var result = Option.Some(97).ToArray();
-            Assert.That(result, Is.EqualTo(new[] { 97 }));
+            var result = Option.Some(42).ToArray();
+            Assert.That(result, Is.EqualTo(new[] { 42 }));
         }
 
         [Test]
@@ -128,8 +128,8 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void ToListSome()
         {
-            var result = Option.Some(97).ToList();
-            Assert.That(result, Is.EqualTo(new List<int> { 97 }));
+            var result = Option.Some(42).ToList();
+            Assert.That(result, Is.EqualTo(new List<int> { 42 }));
         }
 
         [Test]
@@ -142,8 +142,8 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void ToEnumerableSome()
         {
-            var result = Option.Some(97).ToEnumerable();
-            Assert.That(result, Is.EqualTo(new[] { 97 }));
+            var result = Option.Some(42).ToEnumerable();
+            Assert.That(result, Is.EqualTo(new[] { 42 }));
         }
 
         [Test]
