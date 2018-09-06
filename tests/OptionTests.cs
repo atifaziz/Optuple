@@ -16,6 +16,22 @@ namespace JustNothing.Tests
         }
 
         [Test]
+        public void SomeNullReference()
+        {
+            var (t, x) = Option.Some((object) null);
+            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(x, Is.Null);
+        }
+
+        [Test]
+        public void SomeNullValue()
+        {
+            var (t, x) = Option.Some((int?) null);
+            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(x, Is.Null);
+        }
+
+        [Test]
         public void None()
         {
             var (t, x) = Option.None<int>();
