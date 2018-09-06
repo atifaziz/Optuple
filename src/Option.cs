@@ -32,8 +32,8 @@ namespace JustNothing
         public static (Case Case, T Value) ToOption<T>(this (bool HasValue, T Value) option) =>
             option.HasValue ? Some(option.Value) : None<T>();
 
-        public static (Case Case, T Value) ToOption<T>(this T value) =>
-            value == null ? None<T>() : Some(value);
+        public static (Case Case, T Value) ToOption<T>(this T? value) where T : struct =>
+            value is T x ? Some(x) : None<T>();
 
         public static (bool HasValue, T Value) Flagged<T>(this (Case Case, T Value) option) =>
             option.IsSome() ? (true, option.Value) : (false, default);
