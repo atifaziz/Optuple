@@ -341,6 +341,12 @@ namespace JustNothing.Tests
             Assert.That(result, Is.Null);
         }
 
+        // Credit & inspiration:
+        // https://github.com/nlkl/Optional/blob/fa0160d995af60e8378c28005d810ec5b74f2eef/src/Optional.Tests/MaybeTests.cs#L137-L202
+        // Copyright (c) 2014 Nils Lück
+        // The MIT License (MIT)
+        // https://github.com/nlkl/Optional/blob/fa0160d995af60e8378c28005d810ec5b74f2eef/LICENSE
+
         public class CompareTo
         {
             static void LessThan<T>((Case, T) lesser, (Case, T) greater)
