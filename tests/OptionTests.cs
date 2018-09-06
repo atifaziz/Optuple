@@ -254,6 +254,7 @@ namespace JustNothing.Tests
             var some = Option.Some(42);
             Assert.That(some.OrDefault(), Is.EqualTo(42));
         }
+
         [Test]
         public void OrDefaultNone()
         {
