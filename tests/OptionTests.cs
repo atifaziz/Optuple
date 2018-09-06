@@ -177,7 +177,9 @@ namespace JustNothing.Tests
         public void DoSome()
         {
             var some = Option.Some(2);
-            some.Do(x => Assert.That(x, Is.EqualTo(2)));
+            var actual = 0;
+            some.Do(x => actual = x);
+            Assert.That(actual, Is.EqualTo(2));
         }
 
         [Test]
