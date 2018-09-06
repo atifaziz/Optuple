@@ -10,17 +10,17 @@ namespace JustNothing.Tests
         [Test]
         public void Some()
         {
-            var x = Option.Some(42);
-            Assert.That(x.Case, Is.EqualTo(Case.Some));
-            Assert.That(x.Value, Is.EqualTo(42));
+            var (t, x) = Option.Some(42);
+            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(x, Is.EqualTo(42));
         }
 
         [Test]
         public void None()
         {
-            var x = Option.None<int>();
-            Assert.That(x.Case, Is.EqualTo(Case.None));
-            Assert.That(x.Value, Is.EqualTo(default(int)));
+            var (t, x) = Option.None<int>();
+            Assert.That(t, Is.EqualTo(Case.None));
+            Assert.That(x, Is.EqualTo(default(int)));
         }
 
         [Test]
@@ -98,17 +98,17 @@ namespace JustNothing.Tests
         [Test]
         public void Flagged()
         {
-            var x = (Case.Some, 42).Flagged();
-            Assert.That(x.HasValue, Is.True);
-            Assert.That(x.Value, Is.EqualTo(42));
+            var (some, x) = (Case.Some, 42).Flagged();
+            Assert.That(some, Is.True);
+            Assert.That(x, Is.EqualTo(42));
         }
 
         [Test]
         public void FlaggedNone()
         {
-            var x = (Case.None, 42).Flagged();
-            Assert.That(x.HasValue, Is.False);
-            Assert.That(x.Value, Is.EqualTo(default(int)));
+            var (some, x) = (Case.None, 42).Flagged();
+            Assert.That(some, Is.False);
+            Assert.That(x, Is.EqualTo(default(int)));
         }
 
         [Test]
