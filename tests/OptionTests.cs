@@ -326,63 +326,71 @@ namespace JustNothing.Tests
             Assert.That(result, Is.Null);
         }
 
-        [Test]
-        public void CompareTo()
+        public class CompareTo
         {
-            void LessThan<T>((Case, T) lesser, (Case, T) greater)
+            static void LessThan<T>((Case, T) lesser, (Case, T) greater)
             {
                 Assert.That(lesser.CompareTo(greater), Is.LessThan(0));
                 Assert.That(greater.CompareTo(lesser), Is.GreaterThan(0));
             }
 
-            void EqualTo<T>((Case, T) left, (Case, T) right)
+            static void EqualTo<T>((Case, T) left, (Case, T) right)
             {
                 Assert.That(left.CompareTo(right), Is.EqualTo(0));
                 Assert.That(right.CompareTo(left), Is.EqualTo(0));
             }
 
-            // Value type comparisons
-            var noneStruct = Option.None<int>();
-            var someStruct1 = Option.Some(1);
-            var someStruct2 = Option.Some(2);
+            [Test]
+            public void ValueTypes()
+            {
+                var none = Option.None<int>();
+                var some1 = Option.Some(1);
+                var some2 = Option.Some(2);
 
-            LessThan(noneStruct, someStruct1);
-            LessThan(someStruct1, someStruct2);
+                LessThan(none, some1);
+                LessThan(some1, some2);
 
-            EqualTo(noneStruct, noneStruct);
-            EqualTo(someStruct1, someStruct1);
+                EqualTo(none, none);
+                EqualTo(some1, some1);
+            }
 
-            // IComparable comparisons
-            var noneComparable = Option.None<string>();
-            var someComparableNull = Option.Some<string>(null);
-            var someComparable1 = Option.Some("1");
-            var someComparable2 = Option.Some("2");
+            [Test]
+            public void Comparables()
+            {
+                var none = Option.None<string>();
+                var someNull = Option.Some<string>(null);
+                var some1 = Option.Some("1");
+                var some2 = Option.Some("2");
 
-            LessThan(noneComparable, someComparable1);
-            LessThan(noneComparable, someComparableNull);
-            LessThan(someComparableNull, someComparable1);
-            LessThan(someComparable1, someComparable2);
+                LessThan(none, some1);
+                LessThan(none, someNull);
+                LessThan(someNull, some1);
+                LessThan(some1, some2);
 
-            EqualTo(noneComparable, noneComparable);
-            EqualTo(someComparableNull, someComparableNull);
-            EqualTo(someComparable1, someComparable1);
+                EqualTo(none, none);
+                EqualTo(someNull, someNull);
+                EqualTo(some1, some1);
+            }
 
-            // Non-IComparable comparisons
-            var noneNotComparable = Option.None<Dictionary<string, string>>();
-            var someNotComparableNull = Option.Some<Dictionary<string, string>>(null);
-            var someNotComparable1 = Option.Some(new Dictionary<string, string>());
-            var someNotComparable2 = Option.Some(new Dictionary<string, string>());
+            [Test]
+            public void NonComparables()
+            {
+                var none = Option.None<Dictionary<string, string>>();
+                var someNull = Option.Some<Dictionary<string, string>>(null);
+                var some1 = Option.Some(new Dictionary<string, string>());
+                var some2 = Option.Some(new Dictionary<string, string>());
 
-            Assert.Throws<ArgumentException>(() => someNotComparable1.CompareTo(someNotComparable2));
-            Assert.Throws<ArgumentException>(() => someNotComparable2.CompareTo(someNotComparable1));
+                Assert.Throws<ArgumentException>(() => some1.CompareTo(some2));
+                Assert.Throws<ArgumentException>(() => some2.CompareTo(some1));
 
-            LessThan(noneNotComparable, someNotComparable1);
-            LessThan(noneNotComparable, someNotComparableNull);
-            LessThan(someNotComparableNull, someNotComparable1);
+                LessThan(none, some1);
+                LessThan(none, someNull);
+                LessThan(someNull, some1);
 
-            EqualTo(noneNotComparable, noneNotComparable);
-            EqualTo(someNotComparableNull, someNotComparableNull);
-            EqualTo(someNotComparable1, someNotComparable1);
+                EqualTo(none, none);
+                EqualTo(someNull, someNull);
+                EqualTo(some1, some1);
+            }
         }
     }
 }
