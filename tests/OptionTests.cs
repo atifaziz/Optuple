@@ -222,16 +222,17 @@ namespace JustNothing.Tests
         public void MapSome()
         {
             var some = Option.Some(42);
-            var result = some.Map(n => (char) n);
-            Assert.That(result, Is.EqualTo(Option.Some('*')));
+            var result = some.Map(n => new string((char) n, n));
+            var stars = new string('*', 42);
+            Assert.That(result, Is.EqualTo(Option.Some(stars)));
         }
 
         [Test]
         public void MapNone()
         {
             var none = Option.None<int>();
-            var result = none.Map(n => (char) n);
-            Assert.That(result, Is.EqualTo(none));
+            var result = none.Map(n => new string((char) n, n));
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
         [Test]

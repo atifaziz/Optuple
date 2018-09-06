@@ -13,9 +13,10 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.Some(42)
-                select (char) a;
+                select new string((char) a, a);
 
-            Assert.That(result, Is.EqualTo(Option.Some('*')));
+            var stars = new string('*', 42);
+            Assert.That(result, Is.EqualTo(Option.Some(stars)));
         }
 
         [Test]
@@ -23,9 +24,9 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.None<int>()
-                select (char) a;
+                select new string((char) a, a);
 
-            Assert.That(result, Is.EqualTo(Option.None<char>()));
+            Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
         [Test]
@@ -55,10 +56,11 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.Some(42)
-                from b in Option.Some((char) a)
+                from b in Option.Some(new string((char) a, a))
                 select string.Concat(a, b);
 
-            Assert.That(result, Is.EqualTo(Option.Some("42*")));
+            var stars = new string('*', 42);
+            Assert.That(result, Is.EqualTo(Option.Some("42" + stars)));
         }
 
         [Test]
@@ -66,7 +68,7 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.None<int>()
-                from b in Option.Some((char) a)
+                from b in Option.Some(new string((char) a, a))
                 select string.Concat(a, b);
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -77,7 +79,7 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.Some(42)
-                from b in Option.None<char>()
+                from b in Option.None<string>()
                 select string.Concat(a, b);
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -88,7 +90,7 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.None<int>()
-                from b in Option.None<char>()
+                from b in Option.None<string>()
                 select string.Concat(a, b);
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
