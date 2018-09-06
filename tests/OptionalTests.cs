@@ -122,7 +122,7 @@ namespace JustNothing.Linq.Tests
         public void ToArrayNone()
         {
             var result = Option.None<int>().ToArray();
-            Assert.That(result, Is.EqualTo(new int[] { }));
+            Assert.That(result, Is.EqualTo(new int[0]));
         }
 
         [Test]
