@@ -20,7 +20,7 @@ namespace JustNothing.Tests
         {
             var (t, x) = Option.None<int>();
             Assert.That(t, Is.EqualTo(Case.None));
-            Assert.That(x, Is.EqualTo(default(int)));
+            Assert.That(x, Is.Zero);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace JustNothing.Tests
         {
             var (some, x) = Option.None<int>().Flagged();
             Assert.That(some, Is.False);
-            Assert.That(x, Is.EqualTo(default(int)));
+            Assert.That(x, Is.Zero);
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace JustNothing.Tests
         public void OrDefaultNone()
         {
             var none = Option.None<int>();
-            Assert.That(none.OrDefault(), Is.EqualTo(0));
+            Assert.That(none.OrDefault(), Is.Zero);
         }
 
         [Test]
@@ -272,7 +272,7 @@ namespace JustNothing.Tests
         [Test]
         public void CountNone()
         {
-            Assert.That(Option.None<int>().Count(), Is.EqualTo(0));
+            Assert.That(Option.None<int>().Count(), Is.Zero);
         }
 
         [Test]
@@ -337,8 +337,8 @@ namespace JustNothing.Tests
 
             static void EqualTo<T>((Case, T) left, (Case, T) right)
             {
-                Assert.That(left.CompareTo(right), Is.EqualTo(0));
-                Assert.That(right.CompareTo(left), Is.EqualTo(0));
+                Assert.That(left.CompareTo(right), Is.Zero);
+                Assert.That(right.CompareTo(left), Is.Zero);
             }
 
             [Test]
