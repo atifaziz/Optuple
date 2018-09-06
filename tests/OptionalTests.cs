@@ -108,7 +108,7 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
-        public void CastObjectToInt()
+        public void Cast()
         {
             var result =
                 from int x in Option.Some((object) 42)
@@ -118,7 +118,7 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
-        public void CastIntToString()
+        public void CastInvalid()
         {
             Assert.Throws<InvalidCastException>(() =>
             {
