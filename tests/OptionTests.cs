@@ -146,17 +146,17 @@ namespace JustNothing.Tests
         [Test]
         public void MatchSome()
         {
-            var some = Option.Some(2);
-            var result = some.Match(x => "aeiou".Substring(x), () => "aeiou");
-            Assert.That(result, Is.EqualTo("iou"));
+            var some = Option.Some(3);
+            var result = some.Match(x => "foobar".Substring(x), () => "none");
+            Assert.That(result, Is.EqualTo("bar"));
         }
 
         [Test]
         public void MatchNone()
         {
             var none = Option.None<int>();
-            var result = none.Match(x => "aeiou".Substring(x), () => "aeiou");
-            Assert.That(result, Is.EqualTo("aeiou"));
+            var result = none.Match(x => "foobar".Substring(x), () => "foobar");
+            Assert.That(result, Is.EqualTo("foobar"));
         }
 
         [Test]
@@ -193,16 +193,16 @@ namespace JustNothing.Tests
         [Test]
         public void BindSome()
         {
-            var some = Option.Some(2);
-            var result = some.Bind(x => Option.Some("aeiou".Substring(x)));
-            Assert.That(result, Is.EqualTo(Option.Some("iou")));
+            var some = Option.Some(3);
+            var result = some.Bind(x => Option.Some("foobar".Substring(x)));
+            Assert.That(result, Is.EqualTo(Option.Some("bar")));
         }
 
         [Test]
         public void BindNone()
         {
             var none = Option.None<int>();
-            var result = none.Bind(x => Option.Some("aeiou".Substring(x)));
+            var result = none.Bind(x => Option.Some("foobar".Substring(x)));
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
