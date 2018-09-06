@@ -7,6 +7,9 @@ skip_commits:
     - '*.md'
     - '*.txt'
 skip_tags: true
+environment:
+  CODECOV_TOKEN:
+    secure: kxUS+Iw3YV0RWPgyFIhNf0MwZZWeTo7yVEcqRH+oxHA2T7oP3iCH0YJ1i3vc5aFE
 build_script:
 - ps: >-
     $id = $env:APPVEYOR_REPO_COMMIT_TIMESTAMP -replace '([-:]|\.0+Z)', ''
