@@ -15,7 +15,15 @@ build_script:
 
     if ($isWindows) { .\pack.cmd ci-$id } else { ./pack.sh ci-$id }
 test_script:
-- ps: if ($isWindows) { .\test.cmd } else { ./test.sh }
+- ps: |
+      if ($isWindows) {
+          .\test.cmd
+      } else {
+          ./test.sh
+          curl -s https://codecov.io/bash > codecov
+          chmod +x codecov
+          ./codecov -f ./tests/coverage.opencover.xml
+      }
 artifacts:
 - path: dist\*.nupkg
 deploy:
