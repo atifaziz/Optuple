@@ -25,7 +25,7 @@ test_script:
           ./test.sh
           curl -s https://codecov.io/bash > codecov
           chmod +x codecov
-          ./codecov -t env:CODECOV_TOKEN -f ./tests/coverage.opencover.xml
+          ./codecov -f ./tests/coverage.opencover.xml
       }
 artifacts:
 - path: dist\*.nupkg
