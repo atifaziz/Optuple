@@ -42,73 +42,73 @@ namespace JustNothing.Tests
         [Test]
         public void IsSome()
         {
-            var x = Option.Some(42);
-            Assert.That(x.IsSome(), Is.True);
+            var result = Option.Some(42);
+            Assert.That(result.IsSome(), Is.True);
         }
 
         [Test]
         public void SomeIsNotNone()
         {
-            var x = Option.Some(42);
-            Assert.That(x.IsNone(), Is.False);
+            var result = Option.Some(42);
+            Assert.That(result.IsNone(), Is.False);
         }
 
         [Test]
         public void IsNone()
         {
-            var x = Option.None<int>();
-            Assert.That(x.IsNone(), Is.True);
+            var result = Option.None<int>();
+            Assert.That(result.IsNone(), Is.True);
         }
 
         [Test]
         public void NoneIsNotSome()
         {
-            var x = Option.None<int>();
-            Assert.That(x.IsSome(), Is.False);
+            var result = Option.None<int>();
+            Assert.That(result.IsSome(), Is.False);
         }
 
         [Test]
         public void ToOptionWithTupleIsSome()
         {
-            var x = (true, 42).ToOption();
-            Assert.That(x, Is.EqualTo(Option.Some(42)));
+            var result = (true, 42).ToOption();
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void ToOptionWithTupleIsNone()
         {
-            var x = (false, 42).ToOption();
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            var result = (false, 42).ToOption();
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void ToOptionWithNullableNonNull()
         {
             int? i = 42;
-            var x = i.ToOption();
-            Assert.That(x, Is.EqualTo(Option.Some(42)));
+            var result = i.ToOption();
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void ToOptionWithNullableNull()
         {
             int? i = null;
-            var x = i.ToOption();
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            var result = i.ToOption();
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void From()
         {
-            var x = Option.From(true, 42);
-            Assert.That(x, Is.EqualTo(Option.Some(42)));
+            var result = Option.From(true, 42);
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void FromNone()
         {
-            var x = Option.From(false, 42);
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            var result = Option.From(false, 42);
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
@@ -130,36 +130,36 @@ namespace JustNothing.Tests
         [Test]
         public void SomeWhenWithTrueCondition()
         {
-            var x = Option.SomeWhen(42, n => n > 0);
-            Assert.That(x, Is.EqualTo(Option.Some(42)));
+            var result = Option.SomeWhen(42, n => n > 0);
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void SomeWhenWithFalseCondition()
         {
-            var x = Option.SomeWhen(42, n => n < 0);
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            var result = Option.SomeWhen(42, n => n < 0);
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void NoneWhenNullableIsNonNull()
         {
-            var x = Option.NoneWhen(42, n => n < 0);
-            Assert.That(x, Is.EqualTo(Option.Some(42)));
+            var result = Option.NoneWhen(42, n => n < 0);
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
         [Test]
         public void NoneWhenNullableIsNull()
         {
-            var x = Option.NoneWhen(42, n => n > 0);
-            Assert.That(x, Is.EqualTo(Option.None<int>()));
+            var result = Option.NoneWhen(42, n => n > 0);
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void MatchSome()
         {
             var some = Option.Some(3);
-            var result = some.Match(x => "foobar".Substring(x), () => "none");
+            var result = some.Match(i => "foobar".Substring(i), () => "none");
             Assert.That(result, Is.EqualTo("bar"));
         }
 
@@ -167,7 +167,7 @@ namespace JustNothing.Tests
         public void MatchNone()
         {
             var none = Option.None<int>();
-            var result = none.Match(x => "foobar".Substring(x), () => "foobar");
+            var result = none.Match(i => "foobar".Substring(i), () => "foobar");
             Assert.That(result, Is.EqualTo("foobar"));
         }
 
@@ -189,9 +189,9 @@ namespace JustNothing.Tests
         public void DoSome()
         {
             var some = Option.Some(42);
-            var actual = 0;
-            some.Do(x => actual = x);
-            Assert.That(actual, Is.EqualTo(42));
+            var result = 0;
+            some.Do(x => result = x);
+            Assert.That(result, Is.EqualTo(42));
         }
 
         [Test]
@@ -206,7 +206,7 @@ namespace JustNothing.Tests
         public void BindSome()
         {
             var some = Option.Some(3);
-            var result = some.Bind(x => Option.Some("foobar".Substring(x)));
+            var result = some.Bind(i => Option.Some("foobar".Substring(i)));
             Assert.That(result, Is.EqualTo(Option.Some("bar")));
         }
 
@@ -214,7 +214,7 @@ namespace JustNothing.Tests
         public void BindNone()
         {
             var none = Option.None<int>();
-            var result = none.Bind(x => Option.Some("foobar".Substring(x)));
+            var result = none.Bind(i => Option.Some("foobar".Substring(i)));
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
@@ -222,7 +222,7 @@ namespace JustNothing.Tests
         public void MapSome()
         {
             var some = Option.Some(42);
-            var result = some.Map(x => (char) x);
+            var result = some.Map(n => (char) n);
             Assert.That(result, Is.EqualTo(Option.Some('*')));
         }
 
@@ -230,7 +230,7 @@ namespace JustNothing.Tests
         public void MapNone()
         {
             var none = Option.None<int>();
-            var result = none.Map(x => (char) x);
+            var result = none.Map(n => (char) n);
             Assert.That(result, Is.EqualTo(none));
         }
 
