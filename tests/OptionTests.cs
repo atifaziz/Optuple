@@ -3,7 +3,6 @@ namespace JustNothing.Tests
     using NUnit.Framework;
     using Case = Option.Case;
     using System;
-    using System.Collections.Generic;
 
     [TestFixture]
     public class OptionTests
@@ -375,10 +374,10 @@ namespace JustNothing.Tests
             [Test]
             public void NonComparables()
             {
-                var none = Option.None<Dictionary<string, string>>();
-                var someNull = Option.Some<Dictionary<string, string>>(null);
-                var some1 = Option.Some(new Dictionary<string, string>());
-                var some2 = Option.Some(new Dictionary<string, string>());
+                var none = Option.None<object>();
+                var someNull = Option.Some<object>(null);
+                var some1 = Option.Some(new object());
+                var some2 = Option.Some(new object());
 
                 Assert.Throws<ArgumentException>(() => some1.CompareTo(some2));
                 Assert.Throws<ArgumentException>(() => some2.CompareTo(some1));
