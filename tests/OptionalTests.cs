@@ -19,8 +19,8 @@ namespace JustNothing.Linq.Tests
         public void Select()
         {
             var result =
-                from a in Option.Some(42)
-                select new string((char) a, a);
+                from n in Option.Some(42)
+                select new string((char) n, n);
 
             var stars = new string('*', 42);
             Assert.That(result, Is.EqualTo(Option.Some(stars)));
@@ -30,7 +30,7 @@ namespace JustNothing.Linq.Tests
         public void SelectNone()
         {
             var result =
-                from a in Option.None<int>()
+                from n in Option.None<int>()
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -42,9 +42,9 @@ namespace JustNothing.Linq.Tests
             var some = Option.Some(42);
 
             var result =
-                from a in some
-                where a > 0
-                select a - a;
+                from n in some
+                where n > 0
+                select n - n;
 
             Assert.That(result, Is.EqualTo(Option.Some(0)));
         }
@@ -53,8 +53,8 @@ namespace JustNothing.Linq.Tests
         public void WhereSomeFailsCondition()
         {
             var result =
-                from a in Option.Some(42)
-                where a < 0
+                from n in Option.Some(42)
+                where n < 0
                 select Fail<int>();
 
             Assert.That(result, Is.EqualTo(Option.None<int>()));
@@ -66,9 +66,9 @@ namespace JustNothing.Linq.Tests
             var none = Option.None<int>();
 
             var result =
-                from a in none
+                from n in none
                 where Fail<bool>()
-                select a;
+                select n;
 
             Assert.That(result, Is.EqualTo(none));
         }
@@ -77,9 +77,9 @@ namespace JustNothing.Linq.Tests
         public void SelectMany()
         {
             var result =
-                from a in Option.Some(42)
-                from b in Option.Some(new string((char) a, a))
-                select string.Concat(a, b);
+                from n in Option.Some(42)
+                from s in Option.Some(new string((char) n, n))
+                select string.Concat(n, s);
 
             var stars = new string('*', 42);
             Assert.That(result, Is.EqualTo(Option.Some("42" + stars)));
@@ -89,8 +89,8 @@ namespace JustNothing.Linq.Tests
         public void SelectManyNone()
         {
             var result =
-                from a in Option.None<int>()
-                from b in Fail<(Case, string)>()
+                from n in Option.None<int>()
+                from s in Fail<(Case, string)>()
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -100,8 +100,8 @@ namespace JustNothing.Linq.Tests
         public void SelectManySomeAndNone()
         {
             var result =
-                from a in Option.Some(42)
-                from b in Option.None<string>()
+                from n in Option.Some(42)
+                from s in Option.None<string>()
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -111,8 +111,8 @@ namespace JustNothing.Linq.Tests
         public void Cast()
         {
             var result =
-                from int x in Option.Some((object) 42)
-                select x;
+                from int n in Option.Some((object) 42)
+                select n;
 
             Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
@@ -123,8 +123,8 @@ namespace JustNothing.Linq.Tests
             Assert.Throws<InvalidCastException>(() =>
             {
                 var _ =
-                    from string x in Option.Some((object) 42)
-                    select x;
+                    from string s in Option.Some((object) 42)
+                    select s;
             });
         }
 
@@ -132,7 +132,7 @@ namespace JustNothing.Linq.Tests
         public void CastNone()
         {
             var result =
-                from int x in Option.None<DateTime>()
+                from int _ in Option.None<DateTime>()
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
@@ -141,14 +141,14 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void AllSomeTrue()
         {
-            var result = Option.Some(42).All(e => e < 100);
+            var result = Option.Some(42).All(n => n < 100);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void AllSomeFalse()
         {
-            var result = Option.Some(42).All(e => e >= 100);
+            var result = Option.Some(42).All(n => n >= 100);
             Assert.That(result, Is.False);
         }
 
