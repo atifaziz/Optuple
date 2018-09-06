@@ -30,14 +30,27 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
-        public void WhereSome()
+        public void WhereSomeMeetsCondition()
+        {
+            var some = Option.Some(42);
+
+            var result =
+                from a in some
+                where a > 0
+                select a;
+
+            Assert.That(result, Is.EqualTo(some));
+        }
+
+        [Test]
+        public void WhereSomeFailsCondition()
         {
             var result =
                 from a in Option.Some(42)
-                where a < 100
+                where a < 0
                 select a;
 
-            Assert.That(result, Is.EqualTo(Option.Some('*')));
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
