@@ -98,7 +98,7 @@ namespace JustNothing.Tests
         [Test]
         public void Flagged()
         {
-            var (some, x) = (Case.Some, 42).Flagged();
+            var (some, x) = Option.Some(42).Flagged();
             Assert.That(some, Is.True);
             Assert.That(x, Is.EqualTo(42));
         }
@@ -106,7 +106,7 @@ namespace JustNothing.Tests
         [Test]
         public void FlaggedNone()
         {
-            var (some, x) = (Case.None, 42).Flagged();
+            var (some, x) = Option.None<int>().Flagged();
             Assert.That(some, Is.False);
             Assert.That(x, Is.EqualTo(default(int)));
         }
