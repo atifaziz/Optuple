@@ -19,6 +19,16 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
+        public void SelectNone()
+        {
+            var result =
+                from a in Option.None<int>()
+                select (char) a;
+
+            Assert.That(result, Is.EqualTo(Option.None<char>()));
+        }
+
+        [Test]
         public void WhereSome()
         {
             var result =
