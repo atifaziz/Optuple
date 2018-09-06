@@ -11,70 +11,86 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void Select()
         {
-            var result = from a in Option.Some(42)
-                         select (char) a;
+            var result =
+                from a in Option.Some(42)
+                select (char) a;
+
             Assert.That(result, Is.EqualTo(Option.Some('*')));
         }
 
         [Test]
         public void WhereSome()
         {
-            var result = from a in Option.Some(42)
-                         where a < 100
-                         select a;
+            var result =
+                from a in Option.Some(42)
+                where a < 100
+                select a;
+
             Assert.That(result, Is.EqualTo(Option.Some('*')));
         }
 
         [Test]
         public void WhereNone()
         {
-            var result = from a in Option.Some(42)
-                         where a > 100
-                         select a;
+            var result =
+                from a in Option.Some(42)
+                where a > 100
+                select a;
+
             Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
 
         [Test]
         public void SelectMany()
         {
-            var result = from a in Option.Some(42)
-                         from b in Option.Some((char) a)
-                         select string.Concat(a, b);
+            var result =
+                from a in Option.Some(42)
+                from b in Option.Some((char) a)
+                select string.Concat(a, b);
+
             Assert.That(result, Is.EqualTo(Option.Some("42*")));
         }
 
         [Test]
         public void SelectManyNoneAndSome()
         {
-            var result = from a in Option.None<int>()
-                         from b in Option.Some((char) a)
-                         select string.Concat(a, b);
+            var result =
+                from a in Option.None<int>()
+                from b in Option.Some((char) a)
+                select string.Concat(a, b);
+
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
         [Test]
         public void SelectManySomeAndNone()
         {
-            var result = from a in Option.Some(42)
-                         from b in Option.None<char>()
-                         select string.Concat(a, b);
+            var result =
+                from a in Option.Some(42)
+                from b in Option.None<char>()
+                select string.Concat(a, b);
+
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
         [Test]
         public void SelectManyNone()
         {
-            var result = from a in Option.None<int>()
-                         from b in Option.None<char>()
-                         select string.Concat(a, b);
+            var result =
+                from a in Option.None<int>()
+                from b in Option.None<char>()
+                select string.Concat(a, b);
+
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
 
         [Test]
         public void CastObjectToInt()
         {
-            var result = from int x in Option.Some((object) 42)
-                         select x;
+            var result =
+                from int x in Option.Some((object) 42)
+                select x;
+
             Assert.That(result, Is.EqualTo(Option.Some(42)));
         }
 
@@ -83,8 +99,9 @@ namespace JustNothing.Linq.Tests
         {
             Assert.Throws<InvalidCastException>(() =>
             {
-                var _ = from string x in Option.Some((object) 42)
-                        select x;
+                var _ =
+                    from string x in Option.Some((object) 42)
+                    select x;
             });
         }
 
