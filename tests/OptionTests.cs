@@ -384,6 +384,5 @@ namespace JustNothing.Tests
             EqualTo(someNotComparableNull, someNotComparableNull);
             EqualTo(someNotComparable1, someNotComparable1);
         }
-
     }
 }
