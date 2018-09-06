@@ -56,12 +56,14 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void WhereNone()
         {
+            var none = Option.None<int>();
+
             var result =
-                from a in Option.Some(42)
-                where a > 100
+                from a in none
+                where a == 42
                 select a;
 
-            Assert.That(result, Is.EqualTo(Option.None<int>()));
+            Assert.That(result, Is.EqualTo(none));
         }
 
         [Test]
