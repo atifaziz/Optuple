@@ -141,14 +141,14 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void AllSomeTrue()
         {
-            var result = Option.Some(42).All(n => n < 100);
+            var result = Option.Some(42).All(n => n > 0);
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void AllSomeFalse()
         {
-            var result = Option.Some(42).All(n => n >= 100);
+            var result = Option.Some(42).All(n => n < 0);
             Assert.That(result, Is.False);
         }
 
