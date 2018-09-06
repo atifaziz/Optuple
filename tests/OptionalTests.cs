@@ -4,10 +4,17 @@ namespace JustNothing.Linq.Tests
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
+    using Case = Option.Case;
 
     [TestFixture]
     public class OptionalTests
     {
+        static T Fail<T>()
+        {
+            Assert.Fail("Binding semantic error!");
+            return default; // never reaches here
+        }
+
         [Test]
         public void Select()
         {
@@ -24,7 +31,7 @@ namespace JustNothing.Linq.Tests
         {
             var result =
                 from a in Option.None<int>()
-                select new string((char) a, a);
+                select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
@@ -37,9 +44,9 @@ namespace JustNothing.Linq.Tests
             var result =
                 from a in some
                 where a > 0
-                select a;
+                select a - a;
 
-            Assert.That(result, Is.EqualTo(some));
+            Assert.That(result, Is.EqualTo(Option.Some(0)));
         }
 
         [Test]
@@ -48,7 +55,7 @@ namespace JustNothing.Linq.Tests
             var result =
                 from a in Option.Some(42)
                 where a < 0
-                select a;
+                select Fail<int>();
 
             Assert.That(result, Is.EqualTo(Option.None<int>()));
         }
@@ -60,7 +67,7 @@ namespace JustNothing.Linq.Tests
 
             var result =
                 from a in none
-                where a == 42
+                where Fail<bool>()
                 select a;
 
             Assert.That(result, Is.EqualTo(none));
@@ -79,12 +86,12 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
-        public void SelectManyNoneAndSome()
+        public void SelectManyNone()
         {
             var result =
                 from a in Option.None<int>()
-                from b in Option.Some(new string((char) a, a))
-                select string.Concat(a, b);
+                from b in Fail<(Case, string)>()
+                select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
@@ -95,18 +102,7 @@ namespace JustNothing.Linq.Tests
             var result =
                 from a in Option.Some(42)
                 from b in Option.None<string>()
-                select string.Concat(a, b);
-
-            Assert.That(result, Is.EqualTo(Option.None<string>()));
-        }
-
-        [Test]
-        public void SelectManyNone()
-        {
-            var result =
-                from a in Option.None<int>()
-                from b in Option.None<string>()
-                select string.Concat(a, b);
+                select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
         }
@@ -132,6 +128,8 @@ namespace JustNothing.Linq.Tests
             });
         }
 
+        // TODO Test Cast of None
+
         [Test]
         public void AllSomeTrue()
         {
@@ -149,10 +147,8 @@ namespace JustNothing.Linq.Tests
         [Test]
         public void AllNone()
         {
-            var result1 = Option.None<int>().All(e => e > 100);
-            var result2 = Option.None<int>().All(e => e <= 100);
-            Assert.That(result1, Is.True);
-            Assert.That(result2, Is.True);
+            var result = Option.None<int>().All(_ => Fail<bool>());
+            Assert.That(result, Is.True);
         }
 
         [Test]
