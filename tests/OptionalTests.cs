@@ -74,7 +74,7 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
-        public void SelectManySimple() //TODO rename?
+        public void SelectManySimple()
         {
             var result = Option.Some(42).SelectMany(n => Option.Some(new string((char) n, n)));
             var stars = new string('*', 42);
