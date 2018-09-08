@@ -98,6 +98,20 @@ namespace JustNothing.Tests
         }
 
         [Test]
+        public void FromTuple()
+        {
+            var result = Option.From((true, 42));
+            Assert.That(result, Is.EqualTo(Option.Some(42)));
+        }
+
+        [Test]
+        public void FromTupleNone()
+        {
+            var result = Option.From((false, 42));
+            Assert.That(result, Is.EqualTo(Option.None<int>()));
+        }
+
+        [Test]
         public void From()
         {
             var result = Option.From(true, 42);

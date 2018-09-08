@@ -74,6 +74,17 @@ namespace JustNothing.Linq.Tests
         }
 
         [Test]
+        public void SelectManySimple()
+        {
+            var result =
+                from n in Option.Some(42)
+                from s in Option.Some(new string((char) n, n))
+                select s;
+            var stars = new string('*', 42);
+            Assert.That(result, Is.EqualTo(Option.Some(stars)));
+        }
+
+        [Test]
         public void SelectMany()
         {
             var result =
