@@ -1,8 +1,8 @@
 namespace JustNothing.Tests
 {
-    using NUnit.Framework;
-    using Case = Option.Case;
     using System;
+    using NUnit.Framework;
+    using Case = System.Boolean;
 
     [TestFixture]
     public class OptionTests
@@ -11,7 +11,7 @@ namespace JustNothing.Tests
         public void Some()
         {
             var (t, x) = Option.Some(42);
-            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(t, Is.EqualTo(Option.SomeCase));
             Assert.That(x, Is.EqualTo(42));
         }
 
@@ -19,7 +19,7 @@ namespace JustNothing.Tests
         public void SomeNullReference()
         {
             var (t, x) = Option.Some((object) null);
-            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(t, Is.EqualTo(Option.SomeCase));
             Assert.That(x, Is.Null);
         }
 
@@ -27,7 +27,7 @@ namespace JustNothing.Tests
         public void SomeNullValue()
         {
             var (t, x) = Option.Some((int?) null);
-            Assert.That(t, Is.EqualTo(Case.Some));
+            Assert.That(t, Is.EqualTo(Option.SomeCase));
             Assert.That(x, Is.Null);
         }
 
@@ -35,7 +35,7 @@ namespace JustNothing.Tests
         public void None()
         {
             var (t, x) = Option.None<int>();
-            Assert.That(t, Is.EqualTo(Case.None));
+            Assert.That(t, Is.EqualTo(Option.NoneCase));
             Assert.That(x, Is.Zero);
         }
 

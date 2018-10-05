@@ -18,7 +18,7 @@ namespace JustNothing.Linq
 {
     using System;
     using System.Collections.Generic;
-    using Case = Option.Case;
+    using Case = System.Boolean;
 
     static partial class Optional
     {

@@ -4,7 +4,7 @@ namespace JustNothing.Linq.Tests
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
-    using Case = Option.Case;
+    using Case = System.Boolean;
 
     [TestFixture]
     public class OptionalTests

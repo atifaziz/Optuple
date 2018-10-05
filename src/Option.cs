@@ -18,13 +18,15 @@ namespace JustNothing
 {
     using System;
     using System.Collections.Generic;
+    using Case = System.Boolean;
 
     static partial class Option
     {
-        public enum Case { None, Some }
+        public const Case NoneCase = false;
+        public const Case SomeCase = true;
 
-        public static (Case Case, T Value) Some<T>(T value) => (Case.Some, value);
-        public static (Case Case, T Value) None<T>() => (Case.None, default);
+        public static (Case Case, T Value) Some<T>(T value) => (SomeCase, value);
+        public static (Case Case, T Value) None<T>() => (NoneCase, default);
 
         public static (Case Case, T Value) From<T>(bool isSome, T value) => isSome ? Some(value) : None<T>();
         public static (Case Case, T Value) From<T>((bool, T) option) => option.ToOption();
@@ -38,8 +40,8 @@ namespace JustNothing
         public static (bool HasValue, T Value) Flagged<T>(this (Case Case, T Value) option) =>
             option.IsSome() ? (true, option.Value) : (false, default);
 
-        public static bool IsSome<T>(this (Case Case, T Value) option) => option.Case == Case.Some;
-        public static bool IsNone<T>(this (Case Case, T Value) option) => option.Case == Case.None;
+        public static bool IsSome<T>(this (Case Case, T Value) option) => option.Case == SomeCase;
+        public static bool IsNone<T>(this (Case Case, T Value) option) => option.Case == NoneCase;
 
         public static (Case Case, T Value) SomeWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? Some(value) : None<T>();
         public static (Case Case, T Value) NoneWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? None<T>() : Some(value);
