@@ -6,13 +6,13 @@
 
 To use JustNothing simply import the following namespace:
 
-```csharp
+```c#
 using JustNothing;
 ```
 
 An auxiliary namespace is also provided:
 
-```csharp
+```c#
 using JustNothing.Linq; // Linq query syntax support
 ```
 
@@ -21,7 +21,7 @@ using JustNothing.Linq; // Linq query syntax support
 The most basic way to create optional values is to use the static `Option`
 class:
 
-```csharp
+```c#
 var none = Option.None<int>();
 var some = Option.Some(42);
 ```
@@ -29,7 +29,7 @@ var some = Option.Some(42);
 Similarly, a more general extension method is provided, allowing a specified
 predicate:
 
-```csharp
+```c#
 string str = "foo";
 var none = Option.SomeWhen(str, s => s == "bar"); // Return None if predicate is violated
 var none = Option.NoneWhen(str, s => s == "foo"); // Return None if predicate is satisfied
@@ -38,7 +38,7 @@ var none = Option.NoneWhen(str, s => s == "foo"); // Return None if predicate is
 Clearly, optional values are conceptually quite similar to nullables. Hence, a
 method is provided to convert a nullable into an optional value:
 
-```csharp
+```c#
 int? nullableWithoutValue = null;
 int? nullableWithValue = 2;
 var none = nullableWithoutValue.ToOption();
@@ -52,21 +52,21 @@ if a value is present or not).
 
 Firstly, it is possible to check if a value is actually present:
 
-```csharp
+```c#
 var isSome = option.IsSome(); //returns true if a value is present
 var isNone = option.IsNone(); //returns true if a value is not present
 ```
 
 If you want to check if an option `option` satisfies some predicate, you can use the
-`Exists` method. 
+`Exists` method.
 
-```csharp
+```c#
 var isGreaterThanHundred = option.Exists(val => val > 100);
 ```
 
 The most basic way to retrieve a value from an `Option<T>` is the following:
 
-```csharp
+```c#
 // Returns the value if present, or otherwise an alternative value (42)
 var value = option.Or(42);
 ```
@@ -74,12 +74,12 @@ var value = option.Or(42);
 Similarly, the `OrDefault` function simply retrieves the default value for
 a given type:
 
-```csharp
+```c#
 var none = Option.None<int>();
 var value = none.OrDefault(); // Value 0
 ```
 
-```csharp
+```c#
 var none = Option.None<string>();
 var value = none.OrDefault(); // null
 ```
@@ -88,26 +88,26 @@ var value = none.OrDefault(); // null
 In more elaborate scenarios, the `Match` method evaluates a specified
 function:
 
-```csharp
+```c#
 // Evaluates one of the provided functions and returns the result
-var value = option.Match(x => x + 1, () => 42); 
+var value = option.Match(x => x + 1, () => 42);
 
 // Or written in a more functional style (pattern matching)
 var value = option.Match(
-  some: x => x + 1, 
+  some: x => x + 1,
   none: () => 42
 );
 ```
 
 There is a similar `Match` function to simply induce side-effects:
 
-```csharp
+```c#
 // Evaluates one of the provided actions
-option.Match(x => Console.WriteLine(x), () => Console.WriteLine(42)); 
+option.Match(x => Console.WriteLine(x), () => Console.WriteLine(42));
 
 // Or pattern matching style as before
 option.Match(
-  some: x => Console.WriteLine(x), 
+  some: x => Console.WriteLine(x),
   none: () => Console.WriteLine(42)
 );
 ```
@@ -119,7 +119,7 @@ A few extension methods are provided to safely manipulate optional values.
 The `Map` function transforms the inner value of an option. If no value is
 present none is simply propagated:
 
-```csharp
+```c#
 var none = Option.None<int>();
 var stillNone = none.Map(x => x + 10);
 
@@ -131,7 +131,7 @@ Finally, it is possible to perform filtering. The `Filter` function returns
 none, if the specified predicate is not satisfied. If the option is already
 none, it is simply returned as is:
 
-```csharp
+```c#
 var none = Option.None<int>();
 var stillNone = none.Filter(x => x > 10);
 
@@ -147,7 +147,7 @@ var none = some.Filter(x => x != 10);
 Although options deliberately don't act as enumerables, you can easily convert
 an option to an enumerable by calling the `ToEnumerable()` method:
 
-```csharp
+```c#
 var enumerable = option.ToEnumerable();
 ```
 
@@ -158,13 +158,13 @@ somewhat cleaner.
 
 To use LINQ query syntax you must import the following namespace:
 
-```csharp
+```c#
 using JustNothing.Linq;
 ```
 
 This allows you to do fancy stuff such as:
 
-```csharp
+```c#
 var personWithGreenHair =
   from person in FindPersonById(10)
   from hairstyle in GetHairstyle(person)
