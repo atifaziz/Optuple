@@ -57,8 +57,8 @@ var isSome = option.IsSome(); //returns true if a value is present
 var isNone = option.IsNone(); //returns true if a value is not present
 ```
 
-If you want to check if an option `option` satisfies some predicate, you can use the
-`Exists` method.
+If you want to check if an option `option` satisfies some predicate, you can
+use the`Exists` method.
 
 ```c#
 var isGreaterThanHundred = option.Exists(val => val > 100);
@@ -173,7 +173,9 @@ var personWithGreenHair =
   select person;
 ```
 
-In general, this closely resembles a sequence of calls to `FlatMap` and `Filter`. However, using query syntax can be a lot easier to read in complex cases.
+In general, this closely resembles a sequence of calls to `FlatMap` and
+`Filter`. However, using query syntax can be a lot easier to read in complex
+cases.
 
 ### Equivalence and comparison
 
