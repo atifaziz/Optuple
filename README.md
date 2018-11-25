@@ -1,5 +1,30 @@
 # Optuple
 
+Optuple is a .NET Standard library that enables a tuple of Boolean and some
+type (`T`), i.e. `(bool, T)`, to have the same semantics as an option type
+found in most functional languages.
+
+An option type is a discriminated union that either represents the absence of
+a value (_none_) or the value that's present (_some_). For example, F# has
+such a type that is defined as:
+
+```f#
+type Option<T> = | None | Some of T
+```
+
+Optuple, however, does not define any such type. Instead it primarily supplies
+extension methods for any `(bool, T)` (like `Match`, `Map` and more) to be
+treated like an option type. Suppose a value `x` of type `T`, then
+`(true, x)` will be treated like `Some x` and `(false, _)` will
+be treated like `None`. Note that in the _none case_, when the first
+element is `false`, Optuple completely ignores and discards the second
+element.
+
+A library that wants to expose optional values needs no dependency on Optuple.
+It can just expose `(bool, T)` for some type `T`. The client of the library
+can use Optuple independently to get &ldquo;optional semantics&rdquo;.
+
+
 ## Usage
 
 ### Using the library
