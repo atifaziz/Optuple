@@ -1,19 +1,19 @@
-# JustNothing
+# Optuple
 
 ## Usage
 
 ### Using the library
 
-To use JustNothing simply import the following namespace:
+To use Optuple simply import the following namespace:
 
 ```c#
-using JustNothing;
+using Optuple;
 ```
 
 An auxiliary namespace is also provided:
 
 ```c#
-using JustNothing.Linq; // Linq query syntax support
+using Optuple.Linq; // Linq query syntax support
 ```
 
 ### Creating optional values
@@ -47,7 +47,7 @@ var some = nullableWithValue.ToOption();
 
 ### Retrieving values
 
-When retrieving values, JustNothing forces you to consider both cases (that is
+When retrieving values, Optuple forces you to consider both cases (that is
 if a value is present or not).
 
 Firstly, it is possible to check if a value is actually present:
@@ -153,13 +153,13 @@ var enumerable = option.ToEnumerable();
 
 ### Working with LINQ query syntax
 
-JustNothing supports LINQ query syntax, to make the above transformations
+Optuple supports LINQ query syntax, to make the above transformations
 somewhat cleaner.
 
 To use LINQ query syntax you must import the following namespace:
 
 ```c#
-using JustNothing.Linq;
+using Optuple.Linq;
 ```
 
 This allows you to do fancy stuff such as:
