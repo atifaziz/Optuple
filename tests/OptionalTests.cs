@@ -1,4 +1,4 @@
-namespace JustNothing.Linq.Tests
+namespace Optuple.Linq.Tests
 {
     using System;
     using System.Collections.Generic;

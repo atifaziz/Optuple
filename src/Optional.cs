@@ -14,7 +14,7 @@
 //
 #endregion
 
-namespace JustNothing.Linq
+namespace Optuple.Linq
 {
     using System;
     using System.Collections.Generic;

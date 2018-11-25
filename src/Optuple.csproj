@@ -8,11 +8,11 @@
     <Authors>Atif Aziz</Authors>
     <Owners>Atif Aziz</Owners>
     <Company></Company>
-    <PackageProjectUrl>https://github.com/atifaziz/JustNothing</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/atifaziz/JustNothing.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/atifaziz/Optuple</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/atifaziz/Optuple.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>option;optional;maybe;some;none;just;nothing;monad;linq;fp;functional</PackageTags>
-    <PackageLicenseUrl>https://github.com/atifaziz/JustNothing/blob/master/COPYING.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/atifaziz/Optuple/blob/master/COPYING.txt</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\</OutputPath>

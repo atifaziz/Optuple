@@ -1,4 +1,4 @@
-namespace JustNothing.Tests
+namespace Optuple.Tests
 {
     using System;
     using NUnit.Framework;

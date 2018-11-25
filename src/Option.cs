@@ -14,7 +14,7 @@
 //
 #endregion
 
-namespace JustNothing
+namespace Optuple
 {
     using System;
     using System.Collections.Generic;

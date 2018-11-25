@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\JustNothing.csproj" />
+    <ProjectReference Include="..\src\Optuple.csproj" />
   </ItemGroup>
 
 </Project>
