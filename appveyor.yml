@@ -10,12 +10,6 @@ environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 skip_tags: true
-install:
-- sh: wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
-- sh: sudo dpkg -i packages-microsoft-prod.deb
-- sh: sudo apt-get install apt-transport-https
-- sh: sudo apt-get update
-- sh: sudo apt-get install -y --allow-downgrades dotnet-sdk-2.1=2.1.403-1
 build_script:
 - ps: >-
     $id = $env:APPVEYOR_REPO_COMMIT_TIMESTAMP -replace '([-:]|\.0+Z)', ''
