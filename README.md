@@ -208,3 +208,13 @@ Two optional values are equal if the following is satisfied:
 
 * The two options have the same type
 * Both are none, both contain null values, or the contained values are equal
+
+
+---
+
+Credit: A large portion of this documentation was dervied from that of the
+project [Optional]. Thank you, [Nils L&uuml;ck][nlkl]!
+
+
+[Optional]: https://www.nuget.org/packages/Optional/
+[nlkl]: https://github.com/nlkl
