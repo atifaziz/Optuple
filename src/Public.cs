@@ -1,4 +1,4 @@
-namespace JustNothing
+namespace Optuple
 {
     public partial class Option {}
 

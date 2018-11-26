@@ -14,11 +14,11 @@
 //
 #endregion
 
-namespace JustNothing.Linq
+namespace Optuple.Linq
 {
     using System;
     using System.Collections.Generic;
-    using Case = Option.Case;
+    using Case = System.Boolean;
 
     static partial class Optional
     {
@@ -46,11 +46,6 @@ namespace JustNothing.Linq
 
         public static List<T> ToList<T>(this (Case, T) option) =>
             option.Match(x => new List<T> { x }, () => new List<T>());
-
-        public static IEnumerable<T> ToEnumerable<T>(this (Case, T) option) =>
-            option.Match(Seq, System.Linq.Enumerable.Empty<T>);
-
-        static IEnumerable<T> Seq<T>(T x) { yield return x; }
 
         static class EmptyArray<T>
         {
