@@ -34,7 +34,7 @@ namespace Optuple
             value is T x ? Some(x) : None<T>();
 
         public static (bool HasValue, T Value) Flagged<T>(this (bool HasValue, T Value) option) =>
-            option.IsSome() ? (true, option.Value) : (false, default);
+            option.IsSome() ? (true, option.Value) : default;
 
         public static bool IsSome<T>(this (bool HasValue, T Value) option) => option.HasValue;
         public static bool IsNone<T>(this (bool HasValue, T Value) option) => !option.HasValue;
