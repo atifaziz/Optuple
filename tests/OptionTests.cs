@@ -11,7 +11,7 @@ namespace Optuple.Tests
         public void Some()
         {
             var (t, x) = Option.Some(42);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.EqualTo(42));
         }
 
@@ -19,7 +19,7 @@ namespace Optuple.Tests
         public void SomeNullReference()
         {
             var (t, x) = Option.Some((object) null);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.Null);
         }
 
@@ -27,7 +27,7 @@ namespace Optuple.Tests
         public void SomeNullValue()
         {
             var (t, x) = Option.Some((int?) null);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.Null);
         }
 
@@ -35,7 +35,7 @@ namespace Optuple.Tests
         public void None()
         {
             var (t, x) = Option.None<int>();
-            Assert.That(t, Is.EqualTo(Option.NoneCase));
+            Assert.That(t, Is.False);
             Assert.That(x, Is.Zero);
         }
 
