@@ -4,6 +4,8 @@ namespace Optuple.Linq.Tests
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
+    using Optuple.Tests;
+    using _ = System.Object;
 
     [TestFixture]
     public class OptionalTests
@@ -12,6 +14,14 @@ namespace Optuple.Linq.Tests
         {
             Assert.Fail("Binding semantic error!");
             return default; // never reaches here
+        }
+
+        [Test]
+        public void SelectWithNullSelector()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).Select<int, object>(null));
+            Assert.That(e.ParamName, Is.EqualTo("selector"));
         }
 
         [Test]
@@ -33,6 +43,14 @@ namespace Optuple.Linq.Tests
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [Test]
+        public void WhereWithNullPredicate()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).Where(null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
         }
 
         [Test]
@@ -73,11 +91,35 @@ namespace Optuple.Linq.Tests
         }
 
         [Test]
+        public void SelectManySimpleWithNullSecondSelector()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).SelectMany<_, _>(null));
+            Assert.That(e.ParamName, Is.EqualTo("secondSelector"));
+        }
+
+        [Test]
         public void SelectManySimple()
         {
             var result = Option.Some(42).SelectMany(n => Option.Some(new string((char) n, n)));
             var stars = new string('*', 42);
             Assert.That(result, Is.EqualTo(Option.Some(stars)));
+        }
+
+        [Test]
+        public void SelectManyWithNullSecondSelector()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).SelectMany(null, BreakingFunc.Of<_, _, _>()));
+            Assert.That(e.ParamName, Is.EqualTo("secondSelector"));
+        }
+
+        [Test]
+        public void SelectManyWithNullResultSelector()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).SelectMany<_, _, _>(BreakingFunc.Of<_, (bool, _)>(), null));
+            Assert.That(e.ParamName, Is.EqualTo("resultSelector"));
         }
 
         [Test]
@@ -143,6 +185,14 @@ namespace Optuple.Linq.Tests
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [Test]
+        public void AllWithNullPredicate()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.Some(42).All(null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
         }
 
         [Test]

@@ -2,6 +2,7 @@ namespace Optuple.Tests
 {
     using System;
     using NUnit.Framework;
+    using _ = System.Object;
 
     [TestFixture]
     public class OptionTests
@@ -141,6 +142,14 @@ namespace Optuple.Tests
         }
 
         [Test]
+        public void SomeWhenWithNullPredicate()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.SomeWhen(42, null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
+        }
+
+        [Test]
         public void SomeWhenWithTrueCondition()
         {
             var result = Option.SomeWhen(42, n => n > 0);
@@ -155,6 +164,14 @@ namespace Optuple.Tests
         }
 
         [Test]
+        public void NoneWhenWithNullPredicate()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.NoneWhen(42, null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
+        }
+
+        [Test]
         public void NoneWhenNullableIsNonNull()
         {
             var result = Option.NoneWhen(42, n => n < 0);
@@ -166,6 +183,24 @@ namespace Optuple.Tests
         {
             var result = Option.NoneWhen(42, n => n > 0);
             Assert.That(result, Is.EqualTo(Option.None<int>()));
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void MatchWithNullSomeFunction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Match(null, BreakingFunc.Of<_>()));
+            Assert.That(e.ParamName, Is.EqualTo("some"));
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void MatchWithNullNoneFunction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Match(BreakingFunc.Of<_, _>(), null));
+            Assert.That(e.ParamName, Is.EqualTo("none"));
         }
 
         [Test]
@@ -184,6 +219,24 @@ namespace Optuple.Tests
             Assert.That(result, Is.EqualTo("foobar"));
         }
 
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void MatchWithNullSomeAction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Match(null, BreakingAction.OfNone));
+            Assert.That(e.ParamName, Is.EqualTo("some"));
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void MatchWithNullNoneAction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Match(BreakingAction.Of<int>(), null));
+            Assert.That(e.ParamName, Is.EqualTo("none"));
+        }
+
         [Test]
         public void MatchSomeWithAction()
         {
@@ -196,6 +249,15 @@ namespace Optuple.Tests
         {
             var none = Option.None<int>();
             none.Match(x => Assert.Fail(), Assert.Pass);
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void DoWithNullAction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Do(null));
+            Assert.That(e.ParamName, Is.EqualTo("some"));
         }
 
         [Test]
@@ -215,6 +277,15 @@ namespace Optuple.Tests
             Assert.Pass();
         }
 
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void BindWithNullFunction(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Bind<int, _>(null));
+            Assert.That(e.ParamName, Is.EqualTo("function"));
+        }
+
         [Test]
         public void BindSome()
         {
@@ -229,6 +300,15 @@ namespace Optuple.Tests
             var none = Option.None<int>();
             var result = none.Bind(i => Option.Some("foobar".Substring(i)));
             Assert.That(result, Is.EqualTo(Option.None<string>()));
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void MapWithNullMapper(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Map<_, _>(null));
+            Assert.That(e.ParamName, Is.EqualTo("mapper"));
         }
 
         [Test]
@@ -302,6 +382,15 @@ namespace Optuple.Tests
             Assert.That(Option.None<int>().Count(), Is.Zero);
         }
 
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void ExistsWithNullPredicate(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Exists(null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
+        }
+
         [Test]
         public void ExistsSome()
         {
@@ -316,6 +405,15 @@ namespace Optuple.Tests
             var some = Option.None<int>();
             Assert.That(some.Exists(x => x < 0), Is.False);
             Assert.That(some.Exists(x => x > 0), Is.False);
+        }
+
+        [TestCase(true, 42)]
+        [TestCase(false, 0)]
+        public void FilterWithNullPredicate(bool f, int v)
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                Option.From(f, v).Filter(null));
+            Assert.That(e.ParamName, Is.EqualTo("predicate"));
         }
 
         [Test]

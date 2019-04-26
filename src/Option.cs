@@ -39,23 +39,37 @@ namespace Optuple
         public static bool IsSome<T>(this (bool HasValue, T Value) option) => option.HasValue;
         public static bool IsNone<T>(this (bool HasValue, T Value) option) => !option.HasValue;
 
-        public static (bool HasValue, T Value) SomeWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? Some(value) : None<T>();
-        public static (bool HasValue, T Value) NoneWhen<T>(T value, Func<T, bool> predicate) => predicate(value) ? None<T>() : Some(value);
+        public static (bool HasValue, T Value) SomeWhen<T>(T value, Func<T, bool> predicate)
+            => predicate == null ? throw new ArgumentNullException(nameof(predicate))
+             : predicate(value) ? Some(value) : None<T>();
 
-        public static TResult Match<T, TResult>(this (bool HasValue, T Value) option, Func<T, TResult> some, Func<TResult> none) =>
-            option.IsSome() ? some(option.Value) : none();
+        public static (bool HasValue, T Value) NoneWhen<T>(T value, Func<T, bool> predicate)
+            => predicate == null ? throw new ArgumentNullException(nameof(predicate))
+             : predicate(value) ? None<T>() : Some(value);
+
+        public static TResult Match<T, TResult>(this (bool HasValue, T Value) option, Func<T, TResult> some, Func<TResult> none)
+            => some == null ? throw new ArgumentNullException(nameof(some))
+             : none == null ? throw new ArgumentNullException(nameof(none))
+             : option.IsSome() ? some(option.Value) : none();
 
         public static void Match<T>(this (bool HasValue, T Value) option, Action<T> some, Action none)
-        { if (option.IsSome()) some(option.Value); else none(); }
+        {
+            if (some == null) throw new ArgumentNullException(nameof(some));
+            if (none == null) throw new ArgumentNullException(nameof(none));
+
+            if (option.IsSome()) some(option.Value); else none();
+        }
 
         public static void Do<T>(this (bool HasValue, T Value) option, Action<T> some) =>
             option.Match(some, delegate { });
 
-        public static (bool HasValue, TResult Value) Bind<T, TResult>(this (bool HasValue, T Value) first, Func<T, (bool, TResult)> function) =>
-            first.IsSome() ? function(first.Value) : None<TResult>();
+        public static (bool HasValue, TResult Value) Bind<T, TResult>(this (bool HasValue, T Value) first, Func<T, (bool, TResult)> function)
+            => function == null ? throw new ArgumentNullException(nameof(function))
+             : first.IsSome() ? function(first.Value) : None<TResult>();
 
-        public static (bool HasValue, TResult Value) Map<T, TResult>(this (bool HasValue, T Value) option, Func<T, TResult> mapper) =>
-            option.Bind(x => Some(mapper(x)));
+        public static (bool HasValue, TResult Value) Map<T, TResult>(this (bool HasValue, T Value) option, Func<T, TResult> mapper)
+            => mapper == null ? throw new ArgumentNullException(nameof(mapper))
+             : option.Bind(x => Some(mapper(x)));
 
         public static T Get<T>(this (bool HasValue, T Value) option) =>
             option.IsSome() ? option.Value : throw new ArgumentException(nameof(option));
@@ -68,11 +82,13 @@ namespace Optuple
 
         public static int Count<T>(this (bool, T) option) => option.IsSome() ? 1 : 0;
 
-        public static bool Exists<T>(this (bool HasValue, T Value) option, Func<T, bool> predicate) =>
-            option.IsSome() && predicate(option.Value);
+        public static bool Exists<T>(this (bool HasValue, T Value) option, Func<T, bool> predicate)
+            => predicate == null ? throw new ArgumentNullException(nameof(predicate))
+             : option.IsSome() && predicate(option.Value);
 
-        public static (bool HasValue, T Value) Filter<T>(this (bool, T) option, Func<T, bool> predicate) =>
-            option.Bind(x => predicate(x) ? Some(x) : None<T>());
+        public static (bool HasValue, T Value) Filter<T>(this (bool, T) option, Func<T, bool> predicate)
+            => predicate == null ? throw new ArgumentNullException(nameof(predicate))
+             : option.Bind(x => predicate(x) ? Some(x) : None<T>());
 
         public static T? ToNullable<T>(this (bool HasValue, T Value) option) where T : struct =>
             option.IsSome() ? (T?) option.Value : null;

@@ -21,24 +21,29 @@ namespace Optuple.Linq
 
     static partial class Optional
     {
-        public static (bool HasValue, TResult Value) Select<T, TResult>(this (bool, T) option, Func<T, TResult> selector) =>
-            option.Map(selector);
+        public static (bool HasValue, TResult Value) Select<T, TResult>(this (bool, T) option, Func<T, TResult> selector)
+            => selector == null ? throw new ArgumentNullException(nameof(selector))
+             : option.Map(selector);
 
         public static (bool HasValue, T Value) Where<T>(this (bool, T) option, Func<T, bool> predicate) =>
             option.Filter(predicate);
 
-        public static (bool HasValue, TResult Value) SelectMany<T, TResult>(this (bool, T) first, Func<T, (bool, TResult)> secondSelector) =>
-            first.Bind(secondSelector);
+        public static (bool HasValue, TResult Value) SelectMany<T, TResult>(this (bool, T) first, Func<T, (bool, TResult)> secondSelector)
+            => secondSelector == null ? throw new ArgumentNullException(nameof(secondSelector))
+             : first.Bind(secondSelector);
 
-        public static (bool HasValue, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (bool, TFirst) first, Func<TFirst, (bool, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector) =>
-            first.Bind(x => secondSelector(x).Map(y => resultSelector(x, y)));
+        public static (bool HasValue, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (bool, TFirst) first, Func<TFirst, (bool, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector)
+            => secondSelector == null ? throw new ArgumentNullException(nameof(secondSelector))
+             : resultSelector == null ? throw new ArgumentNullException(nameof(resultSelector))
+             : first.Bind(x => secondSelector(x).Map(y => resultSelector(x, y)));
 
         public static (bool HasValue, T Value) Cast<T>(this (bool, object) option) =>
             from x in option
             select (T) x;
 
-        public static bool All<T>(this (bool, T) option, Func<T, bool> predicate) =>
-            option.Match(predicate, () => true);
+        public static bool All<T>(this (bool, T) option, Func<T, bool> predicate)
+            => predicate == null ? throw new ArgumentNullException(nameof(predicate))
+             : option.Match(predicate, () => true);
 
         public static T[] ToArray<T>(this (bool, T) option) =>
             option.Match(x => new[] { x }, () => EmptyArray<T>.Value);
