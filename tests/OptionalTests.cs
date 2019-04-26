@@ -4,7 +4,6 @@ namespace Optuple.Linq.Tests
     using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
-    using Case = System.Boolean;
 
     [TestFixture]
     public class OptionalTests
@@ -98,7 +97,7 @@ namespace Optuple.Linq.Tests
         {
             var result =
                 from n in Option.None<int>()
-                from s in Fail<(Case, string)>()
+                from s in Fail<(bool, string)>()
                 select Fail<string>();
 
             Assert.That(result, Is.EqualTo(Option.None<string>()));

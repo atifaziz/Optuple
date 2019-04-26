@@ -18,33 +18,32 @@ namespace Optuple.Linq
 {
     using System;
     using System.Collections.Generic;
-    using Case = System.Boolean;
 
     static partial class Optional
     {
-        public static (Case Case, TResult Value) Select<T, TResult>(this (Case, T) option, Func<T, TResult> selector) =>
+        public static (bool HasValue, TResult Value) Select<T, TResult>(this (bool, T) option, Func<T, TResult> selector) =>
             option.Map(selector);
 
-        public static (Case Case, T Value) Where<T>(this (Case, T) option, Func<T, bool> predicate) =>
+        public static (bool HasValue, T Value) Where<T>(this (bool, T) option, Func<T, bool> predicate) =>
             option.Filter(predicate);
 
-        public static (Case Case, TResult Value) SelectMany<T, TResult>(this (Case, T) first, Func<T, (Case, TResult)> secondSelector) =>
+        public static (bool HasValue, TResult Value) SelectMany<T, TResult>(this (bool, T) first, Func<T, (bool, TResult)> secondSelector) =>
             first.Bind(secondSelector);
 
-        public static (Case Case, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (Case, TFirst) first, Func<TFirst, (Case, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector) =>
+        public static (bool HasValue, TResult Value) SelectMany<TFirst, TSecond, TResult>(this (bool, TFirst) first, Func<TFirst, (bool, TSecond)> secondSelector, Func<TFirst, TSecond, TResult> resultSelector) =>
             first.Bind(x => secondSelector(x).Map(y => resultSelector(x, y)));
 
-        public static (Case Case, T Value) Cast<T>(this (Case, object) option) =>
+        public static (bool HasValue, T Value) Cast<T>(this (bool, object) option) =>
             from x in option
             select (T) x;
 
-        public static bool All<T>(this (Case, T) option, Func<T, bool> predicate) =>
+        public static bool All<T>(this (bool, T) option, Func<T, bool> predicate) =>
             option.Match(predicate, () => true);
 
-        public static T[] ToArray<T>(this (Case, T) option) =>
+        public static T[] ToArray<T>(this (bool, T) option) =>
             option.Match(x => new[] { x }, () => EmptyArray<T>.Value);
 
-        public static List<T> ToList<T>(this (Case, T) option) =>
+        public static List<T> ToList<T>(this (bool, T) option) =>
             option.Match(x => new List<T> { x }, () => new List<T>());
 
         static class EmptyArray<T>

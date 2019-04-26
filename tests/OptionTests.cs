@@ -2,7 +2,6 @@ namespace Optuple.Tests
 {
     using System;
     using NUnit.Framework;
-    using Case = System.Boolean;
 
     [TestFixture]
     public class OptionTests
@@ -11,7 +10,7 @@ namespace Optuple.Tests
         public void Some()
         {
             var (t, x) = Option.Some(42);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.EqualTo(42));
         }
 
@@ -19,7 +18,7 @@ namespace Optuple.Tests
         public void SomeNullReference()
         {
             var (t, x) = Option.Some((object) null);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.Null);
         }
 
@@ -27,7 +26,7 @@ namespace Optuple.Tests
         public void SomeNullValue()
         {
             var (t, x) = Option.Some((int?) null);
-            Assert.That(t, Is.EqualTo(Option.SomeCase));
+            Assert.That(t, Is.True);
             Assert.That(x, Is.Null);
         }
 
@@ -35,7 +34,7 @@ namespace Optuple.Tests
         public void None()
         {
             var (t, x) = Option.None<int>();
-            Assert.That(t, Is.EqualTo(Option.NoneCase));
+            Assert.That(t, Is.False);
             Assert.That(x, Is.Zero);
         }
 
@@ -363,13 +362,13 @@ namespace Optuple.Tests
 
         public class CompareTo
         {
-            static void LessThan<T>((Case, T) lesser, (Case, T) greater)
+            static void LessThan<T>((bool, T) lesser, (bool, T) greater)
             {
                 Assert.That(lesser.CompareTo(greater), Is.LessThan(0));
                 Assert.That(greater.CompareTo(lesser), Is.GreaterThan(0));
             }
 
-            static void EqualTo<T>((Case, T) left, (Case, T) right)
+            static void EqualTo<T>((bool, T) left, (bool, T) right)
             {
                 Assert.That(left.CompareTo(right), Is.Zero);
                 Assert.That(right.CompareTo(left), Is.Zero);
