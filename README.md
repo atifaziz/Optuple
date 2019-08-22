@@ -38,7 +38,7 @@ using Optuple;
 An auxiliary namespace is also provided:
 
 ```c#
-using Optuple.Linq; // Linq query syntax support
+using Optuple.Linq; // LINQ query syntax support
 ```
 
 ### Creating optional values
