@@ -68,20 +68,6 @@ namespace Optuple.Tests
         }
 
         [Test]
-        public void ToOptionWithTupleIsSome()
-        {
-            var result = (true, 42).ToOption();
-            Assert.That(result, Is.EqualTo(Option.Some(42)));
-        }
-
-        [Test]
-        public void ToOptionWithTupleIsNone()
-        {
-            var result = (false, 42).ToOption();
-            Assert.That(result, Is.EqualTo(Option.None<int>()));
-        }
-
-        [Test]
         public void ToOptionWithNullableNonNull()
         {
             int? i = 42;
@@ -98,20 +84,6 @@ namespace Optuple.Tests
         }
 
         [Test]
-        public void FromTuple()
-        {
-            var result = Option.From((true, 42));
-            Assert.That(result, Is.EqualTo(Option.Some(42)));
-        }
-
-        [Test]
-        public void FromTupleNone()
-        {
-            var result = Option.From((false, 42));
-            Assert.That(result, Is.EqualTo(Option.None<int>()));
-        }
-
-        [Test]
         public void From()
         {
             var result = Option.From(true, 42);
@@ -123,22 +95,6 @@ namespace Optuple.Tests
         {
             var result = Option.From(false, 42);
             Assert.That(result, Is.EqualTo(Option.None<int>()));
-        }
-
-        [Test]
-        public void Flagged()
-        {
-            var (some, x) = Option.Some(42).Flagged();
-            Assert.That(some, Is.True);
-            Assert.That(x, Is.EqualTo(42));
-        }
-
-        [Test]
-        public void FlaggedNone()
-        {
-            var (some, x) = Option.None<int>().Flagged();
-            Assert.That(some, Is.False);
-            Assert.That(x, Is.Zero);
         }
 
         [Test]

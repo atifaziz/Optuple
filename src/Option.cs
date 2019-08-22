@@ -25,16 +25,9 @@ namespace Optuple
         public static (bool HasValue, T Value) None<T>() => default;
 
         public static (bool HasValue, T Value) From<T>(bool isSome, T value) => isSome ? Some(value) : None<T>();
-        public static (bool HasValue, T Value) From<T>((bool, T) option) => option.ToOption();
-
-        public static (bool HasValue, T Value) ToOption<T>(this (bool HasValue, T Value) option) =>
-            option.HasValue ? Some(option.Value) : None<T>();
 
         public static (bool HasValue, T Value) ToOption<T>(this T? value) where T : struct =>
             value is T x ? Some(x) : None<T>();
-
-        public static (bool HasValue, T Value) Flagged<T>(this (bool HasValue, T Value) option) =>
-            option.IsSome() ? (true, option.Value) : default;
 
         public static bool IsSome<T>(this (bool HasValue, T Value) option) => option.HasValue;
         public static bool IsNone<T>(this (bool HasValue, T Value) option) => !option.HasValue;
