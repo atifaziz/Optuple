@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard1.0</TargetFrameworks>
     <LangVersion>7.1</LangVersion>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <Copyright>Copyright © 2018 Atif Aziz. Portions © 2014 Nils Lück</Copyright>
     <Description>A .NET Standard library that adds option semantics to a tuple of Boolean and T.</Description>
     <Authors>Atif Aziz</Authors>
