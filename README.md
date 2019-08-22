@@ -41,6 +41,7 @@ An auxiliary namespace is also provided:
 using Optuple.Linq; // LINQ query syntax support
 ```
 
+
 ### Creating optional values
 
 The most basic way to create optional values is to use the static `Option`
@@ -165,6 +166,25 @@ var stillSome = some.Filter(x => x == 10);
 var none = some.Filter(x => x != 10);
 ```
 
+### Helpers as global methods
+
+If you [statically import][static-using] `OptionModule`:
+
+```c#
+using static Optuple.OptionModule;
+```
+
+it will make the following common methods available for use without type
+qualification:
+
+- `Some`
+- `None<>`
+- `SomeWhen`
+- `NoneWhen`
+
+This permits you to, for example, simply write `Some(42)` and `None<int>()`
+instead of `Option.Some(42)` and `None<int>()`, respectively.
+
 ### Enumerating options
 
 [comment]: # (Move somewhere?!)
@@ -218,3 +238,4 @@ project [Optional]. Thank you, [Nils L&uuml;ck][nlkl]!
 
 [Optional]: https://www.nuget.org/packages/Optional/
 [nlkl]: https://github.com/nlkl
+[static-using]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-static

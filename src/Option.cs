@@ -19,6 +19,18 @@ namespace Optuple
     using System;
     using System.Collections.Generic;
 
+    static partial class OptionModule
+    {
+        public static (bool HasValue, T Value) Some<T>(T value) => Option.Some(value);
+        public static (bool HasValue, T Value) None<T>() => Option.None<T>();
+
+        public static (bool HasValue, T Value) SomeWhen<T>(T value, Func<T, bool> predicate) =>
+            Option.SomeWhen(value, predicate);
+
+        public static (bool HasValue, T Value) NoneWhen<T>(T value, Func<T, bool> predicate) =>
+            Option.NoneWhen(value, predicate);
+    }
+
     static partial class Option
     {
         public static (bool HasValue, T Value) Some<T>(T value) => (true, value);
