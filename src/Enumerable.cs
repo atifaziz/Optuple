@@ -23,20 +23,6 @@ namespace Optuple.Collections
 
     static partial class Enumerable
     {
-        public static IEnumerable<T> Values<T>(this IEnumerable<(bool HasValue, T Value)> source)
-        {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-
-            return _(); IEnumerable<T> _()
-            {
-                foreach (var (has, item) in source)
-                {
-                    if (has)
-                        yield return item;
-                }
-            }
-        }
-
         public static (bool HasValue, T Value)
             SingleOrNone<T>(this IEnumerable<T> source)
         {

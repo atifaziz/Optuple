@@ -208,9 +208,6 @@ counterparts but return an option:
 [LastOrDefault]:   https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.lastordefault
 [SingleOrDefault]: https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.singleordefault
 
-Then there is `Values`, which given a sequence of options, will return values
-from those options that contain some.
-
 ### Working with LINQ query syntax
 
 Optuple supports LINQ query syntax, to make the above transformations
