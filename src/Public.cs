@@ -8,6 +8,11 @@ namespace Optuple
         public partial class Enumerable {}
     }
 
+    namespace Text.RegularExpressions
+    {
+        public partial class Regex {}
+    }
+
     namespace Linq
     {
         public partial class Optional {}
