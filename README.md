@@ -196,6 +196,21 @@ an option to an enumerable by calling the `ToEnumerable()` method:
 var enumerable = option.ToEnumerable();
 ```
 
+By importing the `Optuple.Collections` namespace, you also get the following
+extension methods for sequences (`IEnumerable<>`) that are like their LINQ
+counterparts but return an option:
+
+- `FirstOrNone`: like [`FirstOrDefault`][FirstOrDefault] but returns an option
+- `LastOrNone`: like [`LastOrDefault`][LastOrDefault] but returns an option
+- `SingleOrNone`: like [`SingleOrDefault`][SingleOrDefault] but returns an option
+
+[FirstOrDefault]:  https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.firstordefault
+[LastOrDefault]:   https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.lastordefault
+[SingleOrDefault]: https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.singleordefault
+
+Then there is `Values`, which given a sequence of options, will return values
+from those options that contain some.
+
 ### Working with LINQ query syntax
 
 Optuple supports LINQ query syntax, to make the above transformations
