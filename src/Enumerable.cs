@@ -21,7 +21,7 @@ namespace Optuple.Collections
     using System.Linq;
     using static OptionModule;
 
-    static partial class Enumerable
+    static partial class EnumerableExtensions
     {
         public static (bool HasValue, T Value)
             SingleOrNone<T>(this IEnumerable<T> source)

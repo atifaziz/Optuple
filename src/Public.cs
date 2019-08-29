@@ -5,12 +5,12 @@ namespace Optuple
 
     namespace Collections
     {
-        public partial class Enumerable {}
+        public partial class EnumerableExtensions {}
     }
 
     namespace RegularExpressions
     {
-        public partial class Regex {}
+        public partial class RegexExtensions {}
     }
 
     namespace Linq

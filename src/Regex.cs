@@ -20,7 +20,7 @@ namespace Optuple.RegularExpressions
     using System.Text.RegularExpressions;
     using static OptionModule;
 
-    static partial class Regex
+    static partial class RegexExtensions
     {
         public static (bool Success, T Value) ToOption<T>(this T group) where T : Group
             => group == null ? throw new ArgumentNullException(nameof(group))
