@@ -27,6 +27,21 @@ namespace Optuple.Collections
             => options == null ? throw new ArgumentNullException(nameof(options))
              : options.SelectMany(Option.ToEnumerable);
 
+        public static (bool HasValue, List<T> List)
+            ListAll<T>(this IEnumerable<(bool HasValue, T Value)> options)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
+
+            var list = new List<T>();
+            foreach (var (some, item) in options)
+            {
+                if (!some)
+                    return default;
+                list.Add(item);
+            }
+            return Some(list);
+        }
+
         public static (bool HasValue, T Value)
             SingleOrNone<T>(this IEnumerable<T> source)
         {

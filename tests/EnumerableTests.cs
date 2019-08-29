@@ -585,5 +585,57 @@ namespace Optuple.Tests
                 Assert.That(result, Is.EqualTo(new[] { 2, 4, 6, 8, 10 }));
             }
         }
+
+        public class ListAll
+        {
+            [Test]
+            public void NullSource()
+            {
+                var e = Assert.Throws<ArgumentNullException>(() =>
+                    Enumerable.ListAll<object>(null));
+                Assert.That(e.ParamName, Is.EqualTo("options"));
+            }
+
+            [Test]
+            public void Empty()
+            {
+                var (t, list) = Empty<(bool, object)>().ListAll();
+                Assert.That(t, Is.True);
+                Assert.That(list, Is.Empty);
+            }
+
+            [Test]
+            public void AllNone()
+            {
+                var (t, list) = Repeat(Option.None<int>(), 10).ListAll();
+                Assert.That(t, Is.False);
+                Assert.That(list, Is.Null);
+            }
+
+            [Test]
+            public void AllSome()
+            {
+                var xs = Range(1, 10);
+                var (t, list) = xs.Select(Some).ListAll();
+                Assert.That(t, Is.True);
+                Assert.That(list, Is.EqualTo(xs));
+            }
+
+            [Test]
+            public void NoneAndSome()
+            {
+                var xs =
+                    MoreEnumerable.From(
+                        () => Some(1),
+                        () => Some(2),
+                        () => Some(3),
+                        None<int>,
+                        BreakingFunc.Of<(bool, int)>());
+
+                var (t, list) = xs.ListAll();
+                Assert.That(t, Is.False);
+                Assert.That(list, Is.Null);
+            }
+        }
     }
 }
