@@ -537,5 +537,52 @@ namespace Optuple.Tests
                 }
             }
         }
+
+        public class Values
+        {
+            [Test]
+            public void NullSource()
+            {
+                var e = Assert.Throws<ArgumentNullException>(() =>
+                    Enumerable.Values<object>(null));
+                Assert.That(e.ParamName, Is.EqualTo("source"));
+            }
+
+            [Test]
+            public void Laziness()
+            {
+                new BreakingSequence<(bool, object)>().Values();
+            }
+
+            [Test]
+            public void Empty()
+            {
+                var result = Empty<(bool, object)>().Values();
+                Assert.That(result, Is.Empty);
+            }
+
+            [Test]
+            public void AllNone()
+            {
+                var result = Repeat(Option.None<int>(), 10).Values();
+                Assert.That(result, Is.Empty);
+            }
+
+            [Test]
+            public void AllSome()
+            {
+                var xs = Range(1, 10);
+                var result = xs.Select(Some).Values();
+                Assert.That(result, Is.EqualTo(xs));
+            }
+
+            [Test]
+            public void NoneAndSome()
+            {
+                var xs = Range(1, 10);
+                var result = xs.Select(x => x % 2 == 0 ? Some(x) : default).Values();
+                Assert.That(result, Is.EqualTo(new[] { 2, 4, 6, 8, 10 }));
+            }
+        }
     }
 }
