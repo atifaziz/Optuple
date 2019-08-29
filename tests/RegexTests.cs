@@ -1,9 +1,7 @@
 namespace Optuple.Tests
 {
     using System;
-    using System.Linq;
     using System.Text.RegularExpressions;
-    using Collections;
     using NUnit.Framework;
     using Text.RegularExpressions;
     using Regex = Text.RegularExpressions.Regex;

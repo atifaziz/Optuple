@@ -15,7 +15,6 @@
 
 namespace Optuple.Tests
 {
-    using System;
     using System.Collections.Generic;
 
     class BreakingReadOnlyCollection<T> : BreakingSequence<T>, IReadOnlyCollection<T>

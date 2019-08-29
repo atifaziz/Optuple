@@ -7,7 +7,6 @@ namespace Optuple.Collections.Tests
     using NUnit.Framework;
     using Optuple.Tests;
     using static System.Linq.Enumerable;
-    using static OptionModule;
     using Enumerable = Enumerable;
 
     [TestFixture]
