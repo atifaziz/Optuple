@@ -208,8 +208,9 @@ counterparts but return an option:
 [LastOrDefault]:   https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.lastordefault
 [SingleOrDefault]: https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.singleordefault
 
-Then there is `Values`, which given a sequence of options, will return values
-from those options that contain some.
+Then there is `Filter`, which given a sequence of options, will return a
+sequence of _x_ values from those options in the original sequence that are some
+of _x_.
 
 ### Working with LINQ query syntax
 

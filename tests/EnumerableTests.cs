@@ -7,6 +7,7 @@ namespace Optuple.Tests
     using MoreLinq;
     using NUnit.Framework;
     using static System.Linq.Enumerable;
+    using static OptionModule;
     using Enumerable = Collections.EnumerableExtensions;
 
     [TestFixture]
@@ -538,33 +539,33 @@ namespace Optuple.Tests
             }
         }
 
-        public class Values
+        public class Filter
         {
             [Test]
             public void NullSource()
             {
                 var e = Assert.Throws<ArgumentNullException>(() =>
-                    Enumerable.Values<object>(null));
-                Assert.That(e.ParamName, Is.EqualTo("source"));
+                    Enumerable.Filter<object>(null));
+                Assert.That(e.ParamName, Is.EqualTo("options"));
             }
 
             [Test]
             public void Laziness()
             {
-                new BreakingSequence<(bool, object)>().Values();
+                new BreakingSequence<(bool, object)>().Filter();
             }
 
             [Test]
             public void Empty()
             {
-                var result = Empty<(bool, object)>().Values();
+                var result = Empty<(bool, object)>().Filter();
                 Assert.That(result, Is.Empty);
             }
 
             [Test]
             public void AllNone()
             {
-                var result = Repeat(Option.None<int>(), 10).Values();
+                var result = Repeat(Option.None<int>(), 10).Filter();
                 Assert.That(result, Is.Empty);
             }
 
@@ -572,7 +573,7 @@ namespace Optuple.Tests
             public void AllSome()
             {
                 var xs = Range(1, 10);
-                var result = xs.Select(Some).Values();
+                var result = xs.Select(Some).Filter();
                 Assert.That(result, Is.EqualTo(xs));
             }
 
@@ -580,7 +581,7 @@ namespace Optuple.Tests
             public void NoneAndSome()
             {
                 var xs = Range(1, 10);
-                var result = xs.Select(x => x % 2 == 0 ? Some(x) : default).Values();
+                var result = xs.Select(x => x % 2 == 0 ? Some(x) : default).Filter();
                 Assert.That(result, Is.EqualTo(new[] { 2, 4, 6, 8, 10 }));
             }
         }
