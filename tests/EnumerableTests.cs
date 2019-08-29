@@ -1,16 +1,16 @@
-namespace Optuple.Collections.Tests
+namespace Optuple.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Collections;
     using MoreLinq;
     using NUnit.Framework;
-    using Optuple.Tests;
     using static System.Linq.Enumerable;
-    using Enumerable = EnumerableExtensions;
+    using Enumerable = Collections.EnumerableExtensions;
 
     [TestFixture]
-    public class OptionalTests
+    public class EnumerableTests
     {
         public class FirstOrNone
         {
