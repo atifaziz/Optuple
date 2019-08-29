@@ -3,8 +3,8 @@ namespace Optuple.Tests
     using System;
     using System.Text.RegularExpressions;
     using NUnit.Framework;
-    using Text.RegularExpressions;
-    using Regex = Text.RegularExpressions.Regex;
+    using RegularExpressions;
+    using Regex = RegularExpressions.Regex;
     using SysRegex = System.Text.RegularExpressions.Regex;
 
     [TestFixture]

@@ -14,7 +14,7 @@
 //
 #endregion
 
-namespace Optuple.Text.RegularExpressions
+namespace Optuple.RegularExpressions
 {
     using System;
     using System.Text.RegularExpressions;

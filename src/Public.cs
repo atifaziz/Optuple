@@ -8,7 +8,7 @@ namespace Optuple
         public partial class Enumerable {}
     }
 
-    namespace Text.RegularExpressions
+    namespace RegularExpressions
     {
         public partial class Regex {}
     }
