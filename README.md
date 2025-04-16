@@ -17,7 +17,7 @@ extension methods for any `(bool, T)` (like `Match`, `Map` and more) to be
 treated like an option type. Suppose a value `x` of type `T`, then
 `(true, x)` will be treated like `Some x` and `(false, _)` will
 be treated like `None`. Note that in the _none case_, when the first
-element is `false`, Optuple completely ignores and discards the second
+element is `false`, Optuple completely ignores and disregards the second
 element.
 
 A library that wants to expose optional values needs no dependency on Optuple.
